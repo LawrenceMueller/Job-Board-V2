@@ -1,0 +1,130 @@
+.hero__container {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1, 2;
+  padding: 6em 2em 2em 2em;
+  justify-content: center;
+  background: #fbb98d;
+  background: -webkit-linear-gradient(top left, #d635a3, #fbb98d);
+  background: -moz-linear-gradient(top left, #d635a3, #fbb98d);
+  background: linear-gradient(to bottom right, #d635a3, #fbb98d);
+}
+
+.hero__text_content {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 50%;
+  margin-top: 6em;
+  color: white;
+}
+
+.hero__subtext {
+  font-size: 1rem;
+  margin: 0;
+  text-transform: uppercase;
+  color: white;
+  text-shadow: 2px 3px 5px rgba(0, 0, 0, 0.5);
+}
+
+.hero__title {
+  font-size: 3rem;
+  margin: 0.5em 0;
+  color: white;
+  text-shadow: 2px 3px 5px rgba(0, 0, 0, 0.5);
+}
+
+.hero__text_description {
+  font-size: 1.5em;
+  margin: 0;
+  max-width: 80%;
+  text-shadow: 2px 3px 5px rgba(0, 0, 0, 0.5);
+}
+
+.hero__btn_container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 3em;
+}
+
+.hero__btn {
+  background-color: white;
+  border-radius: 28px;
+  border: 1px solid white;
+  cursor: pointer;
+  color: #d52a9c;
+  padding: 0.5em 1em;
+  width: 50%;
+  font-size: 1.25rem;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  font-weight: bold;
+  margin-top: 1em;
+}
+
+.hero__image {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Media Queries */
+
+@media only screen and (max-width: 1150px) {
+  .hero__container {
+    padding: 4em 3em 3em 5em;
+  }
+
+  .hero__image {
+    max-width: 80%;
+  }
+}
+
+@media only screen and (max-width: 960px) {
+  .hero__container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2em;
+  }
+
+  .hero__text_content {
+    width: 100%;
+    text-align: center;
+    margin-top: 0;
+  }
+
+  .hero__title {
+    font-size: 2.5rem;
+  }
+
+  .hero__text_description {
+    max-width: 100%;
+    font-size: 1.5rem;
+  }
+
+  .hero__btn_container {
+    align-items: center;
+    margin-bottom: 1em;
+  }
+
+  .hero__btn {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .hero__title {
+    font-size: 1.9rem;
+  }
+
+  .hero__text_description {
+    font-size: 1rem;
+  }
+
+  .hero__subtext {
+    font-size: 0.75rem;
+  }
+
+  .hero__btn {
+    width: 80%;
+  }
+}

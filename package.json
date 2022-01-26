@@ -1,5 +1,5 @@
 {
-  "name": "job-board-v2",
+  "name": "next-tutorial",
   "private": true,
   "scripts": {
     "dev": "next dev",
