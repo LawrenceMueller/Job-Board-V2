@@ -1,10 +1,11 @@
 .job_card__card {
-  border: 1px solid black;
+  border: 1px solid #ff3f7b;
   padding: 1em;
   border-radius: 8px;
   margin: 2em 0;
   cursor: pointer;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 15px;
+  transition: all 0.4s ease;
 }
 
 .job_card__information {

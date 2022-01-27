@@ -1,4 +1,4 @@
-import generalBtnStyles from '../styles/GeneralBtnStyles.module.css';
+import generalBtnStyles from '../styles/GeneralBtn.module.css';
 
 function GeneralBtn({ btnFunction, name }) {
   return (

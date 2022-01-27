@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { getCurrentDate } from '../../functions/GetCurrentDate';
+import { getCurrentDate } from '../functions/GetCurrentDate';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { FaBookOpen } from 'react-icons/fa';
 import { VscRemoteExplorer } from 'react-icons/vsc';

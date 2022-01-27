@@ -1,0 +1,102 @@
+.post_job_screen__Container {
+  display: flex;
+  flex-direction: column;
+  width: min(90%, 650px);
+  margin: 2em auto;
+}
+
+.post_job_screen__label {
+  margin-top: 1em;
+  margin-bottom: 0.5rem;
+}
+
+.post_job_screen__text-input {
+  padding: 0.5em 1rem;
+  border-radius: 5px;
+  border: 1px solid grey;
+}
+
+.post_job_screen__text_input[type='text']:disabled {
+  background: darkgrey;
+}
+
+.post_job_screen__job_details {
+  display: flex;
+  margin-top: 1em;
+  justify-content: center;
+}
+
+.post_job_screen__or {
+  margin: 1em 0 0 0;
+}
+
+.additional_margin_top {
+  margin-top: 3em;
+}
+
+.post_job_screen__btn_container {
+  margin-top: 1em;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.hr {
+  overflow: visible; /* For IE */
+  padding: 0;
+  border: none;
+  border-top: medium double darkgrey;
+  color: darkgrey;
+  text-align: center;
+  margin: 1em 0;
+}
+
+.back_btn {
+  display: inline-block;
+  text-align: center;
+  background-color: #ff3f7b;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  padding: 0.5em 1em;
+  border: 0;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  width: 30%;
+  margin: 1em 10px 1em 0;
+}
+
+.back_btn:link,
+.back_btn:visited,
+.back_btn:hover,
+.back_btn:active {
+  text-decoration: none;
+}
+
+/* Media Queries */
+
+@media only screen and (max-width: 525px) {
+  .post_job_screen__job-details {
+    flex-direction: column;
+  }
+
+  .post_job_screen__expereience_required,
+  .post_job_screen__remote_available,
+  .post_job_screen__position_type {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .post_job_screen__remote_available,
+  .post_job_screen__position_type {
+    margin-top: 1em;
+  }
+
+  .post_job_screen__job_details > label {
+    margin-right: 1em;
+  }
+}
+
+/* Rich Text Editor Styles */
+
+.ck.ck-editor__editable[role='textbox'] {
+  min-height: 250px;
+}

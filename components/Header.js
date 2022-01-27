@@ -1,9 +1,13 @@
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 import HeroImage from '../public/images/hero.webp';
 
 import headerStyles from '../styles/Header.module.css';
 
 function Header() {
+  const router = useRouter();
+
   return (
     <header className={headerStyles.hero__container}>
       <div className={headerStyles.hero__text_content}>
@@ -15,8 +19,20 @@ function Header() {
           Job board for developers
         </h2>
         <div className={headerStyles.hero__btn_container}>
-          <button className={headerStyles.hero__btn}>Post a Job</button>
-          <button className={headerStyles.hero__btn}>Remove Listing</button>
+          {router.asPath === '/' ? (
+            <>
+              <Link href='/postjob'>
+                <a className={headerStyles.hero__btn}>Post A Job</a>
+              </Link>
+              <Link href='/remove'>
+                <a className={headerStyles.hero__btn}>Remove Listing</a>
+              </Link>
+            </>
+          ) : (
+            <Link href='/'>
+              <a className={headerStyles.hero__btn}>Find A Job</a>
+            </Link>
+          )}
         </div>
       </div>
       <Image
