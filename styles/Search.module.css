@@ -1,0 +1,77 @@
+.job_search__container {
+  display: flex;
+  flex-direction: column;
+  width: min(90%, 650px);
+  margin: 2em auto;
+}
+
+/* Main search Area */
+
+.job_search__position_and_location_container {
+  display: flex;
+  justify-content: center;
+}
+
+.lable_for_SR {
+  visibility: hidden;
+  width: 0;
+}
+
+.job_search__search_bar {
+  width: 100%;
+  border-radius: 8px;
+  margin-right: 10px;
+  height: 50px;
+  font-size: 1.5rem;
+}
+
+.job_search__btn_container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2em;
+}
+
+/* Add skills section */
+
+.skills_for_filter__container {
+  display: flex;
+  flex-direction: column;
+}
+
+.skills_for__filter__add_input_section {
+  display: flex;
+  justify-content: center;
+}
+
+.skills_for_filter__skills_added_section {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.skills_for_filter__label {
+  font-weight: bold;
+  margin: 2em auto 1em auto;
+}
+
+.skills_for_filter__input {
+  width: 100%;
+}
+
+.skills_for_filter__add_btn {
+  background-color: #ff3f7b;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  border: 0;
+  width: 20%;
+  margin-left: 5px;
+}
+
+/* Media Queries */
+
+@media only screen and (max-width: 525px) {
+  .job_search__position_and_location_container {
+    display: block;
+  }
+}

@@ -1,0 +1,79 @@
+.job_card__card {
+  border: 1px solid black;
+  padding: 1em;
+  border-radius: 8px;
+  margin: 2em 0;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.job_card__information {
+  display: flex;
+  margin-bottom: 1em;
+  justify-content: space-between;
+}
+
+.job_card__details {
+  display: flex;
+  flex-direction: row;
+}
+
+.job_card__title {
+  font-weight: bold;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 1.5rem;
+  line-height: 1em;
+}
+
+.job_card__type,
+.job_card__salary,
+.job_card__location,
+.job_card__remote {
+  margin: 1em 1em 1em 0;
+}
+
+.job_card__company,
+.job_card__title {
+  margin-bottom: 10px;
+}
+
+.job_card__website {
+  text-decoration: underline;
+}
+
+.job_card__description {
+  margin-top: 1em;
+}
+
+.invisible {
+  display: none;
+}
+
+.job_card__btn {
+  background-color: #ff3f7b;
+  border-radius: 8px;
+  border: 1px solid white;
+  cursor: pointer;
+  color: white;
+  padding: 0.5em 1em;
+  margin-top: 1em;
+  font-size: 1.25rem;
+  width: 100%;
+  z-index: 100;
+}
+
+/* Media Queries */
+
+@media only screen and (max-width: 1200px) {
+  .job_card__information {
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+
+@media only screen and (max-width: 805px) {
+  .job_card__title {
+    font-size: 1.4rem;
+  }
+}

@@ -1,0 +1,38 @@
+[
+    {
+        "jobId": 1,
+        "positionName": "Junior Blitz Developer",
+        "companyName": "Fake Company Inc.",
+        "positionType": "Full Time",
+        "location": "USA",
+        "salaryType": "yr",
+        "salary": "70000",
+        "remote": "Remote",
+        "website": "https://www.google.com",
+        "description": "<p>Software Developers spend most of their time hands-on in the creation, feature development, and subsequent maintenance of Central Health properties. Software Developers will assist in the continuous improvement of the team's productivity and code quality. Additionally, our Software Developers play a key role in building and maintaining a culture which focuses on making sure every developer progresses in their career in line with personal goals/expectations.</p><p><strong>Responsibilities</strong></p><p>· Collaborate with other disciplines to build and implement solutions for Central Health’s digital properties</p><p>· Create responsive websites and applications using agreed upon frameworks/technologies</p><p>· Build integrations with outside / third-party systems</p><p>· Work with designers to maintain UI/UX standards</p><p>· Work on all aspects of our product stack from UI to API to data to infrastructure</p><p>· Stay on top of bug and task management</p><p>· Contribute to the continuous improvement of the team's productivity, culture, and code quality</p><p>· Help debug issues and pair program with other developers</p><p>· Create documentation and processes for teaching sessions with other developers as needed</p><p>· Act as a knowledge base for other developers</p><p>· Mentor developers at all levels of their careers to improve skills, code quality, and best practices</p><p><strong>Qualifications</strong></p><p>· Bachelor’s degree in Computer Science, Software Development, Information Systems</p><p>· Three (3) or more years of software development experience (healthcare environment preferred)</p><p>· Deep experience building/deploying/maintaining scalable and always available consumer facing products</p><p>· Experience writing for the front and backend (e.g., VB.Net, MS-SQL. SSRS (SQL Server Reporting Services), JavaScript, HTML, MVC (Model View Controller), Crystal Reports, JSON and XML of modern web applications</p><p>· Experience using Relational (e.g. SQL Server) databases</p><p>· Ability to work with existing Source Code</p><p>· Seasoned estimation skills — can reasonably judge the complexity of a feature and appropriately break it down (if needed) and size it</p><p>Visa sponsorship is not available for this position. This position is in-office in Diamond Bar, CA.</p><p>Job Type: Full-time</p><p>Benefits:</p><ul><li>401(k)</li><li>401(k) matching</li><li>Dental insurance</li><li>Health insurance</li><li>Paid time off</li><li>Vision insurance</li></ul><p>Schedule:</p><ul><li>Monday to Friday</li></ul><p>Ability to commute/relocate:</p><ul><li>Diamond Bar, CA 91765: Reliably commute or planning to relocate before starting work (Required)</li></ul><p>Education:</p><ul><li>High school or equivalent (Preferred)</li></ul><p>Experience:</p><ul><li>software development: 3 years (Required)</li><li>VB.Net: 2 years (Required)</li><li>MS SQL: 1 year (Required)</li></ul><p>Work Location: One location</p>"
+    },
+    {
+        "jobId": 2,
+        "positionName": "Senior Blitz Developer",
+        "companyName": "Fake Company2 Inc.",
+        "positionType": "Part Time",
+        "location": "Dublin, Ireland",
+        "salaryType": "hr",
+        "salary": "27",
+        "remote": "Not Remote",
+        "website": "https://www.yahoo.com",
+        "description": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+    },
+    {
+        "jobId": 3,
+        "positionName": "Blitz Developer",
+        "companyName": "Fake Company3 Inc.",
+        "positionType": "Contract",
+        "location": "Covina, CA",
+        "salaryType": "yr",
+        "salary": "75000",
+        "remote": "Remote",
+        "website": "https://www.bing.com",
+        "description": "<p>Job</p><p>&nbsp;</p><p><strong>Hello</strong></p>"
+    }
+]

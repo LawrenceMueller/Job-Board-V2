@@ -10,11 +10,9 @@ function Header() {
         <p className={headerStyles.hero__subtext}>
           Find your next career in Software
         </p>
-        <h1 className={headerStyles.hero__title}>
-          Console.job&#40;&quot;here&quot;&#41;
-        </h1>
+        <h1 className={headerStyles.hero__title}>Console.job&#40;&#41;</h1>
         <h2 className={headerStyles.hero__text_description}>
-          The best place to find companies looking to hire Software developers
+          Job board for developers
         </h2>
         <div className={headerStyles.hero__btn_container}>
           <button className={headerStyles.hero__btn}>Post a Job</button>

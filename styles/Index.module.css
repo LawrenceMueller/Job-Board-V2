@@ -1,0 +1,14 @@
+.job_card__container {
+  display: flex;
+  flex-direction: column;
+  width: min(90%, 650px);
+  margin: 2em auto;
+}
+
+/* Media Queries */
+
+@media only screen and (max-width: 805px) {
+  .job_card__container {
+    width: 95%;
+  }
+}

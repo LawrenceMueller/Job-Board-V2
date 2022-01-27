@@ -1,44 +1,34 @@
 .hero__container {
   display: flex;
   flex-direction: row;
-  flex-grow: 1, 2;
   padding: 6em 2em 2em 2em;
   justify-content: center;
-  background: #fbb98d;
-  background: -webkit-linear-gradient(top left, #d635a3, #fbb98d);
-  background: -moz-linear-gradient(top left, #d635a3, #fbb98d);
-  background: linear-gradient(to bottom right, #d635a3, #fbb98d);
 }
 
 .hero__text_content {
   display: flex;
   flex-direction: column;
-  text-align: left;
-  width: 50%;
+  width: 35%;
   margin-top: 6em;
-  color: white;
 }
 
 .hero__subtext {
   font-size: 1rem;
   margin: 0;
   text-transform: uppercase;
-  color: white;
-  text-shadow: 2px 3px 5px rgba(0, 0, 0, 0.5);
 }
 
 .hero__title {
-  font-size: 3rem;
-  margin: 0.5em 0;
-  color: white;
-  text-shadow: 2px 3px 5px rgba(0, 0, 0, 0.5);
+  font-size: 5rem;
+  margin: 0.25em 0;
+  font-weight: 500;
 }
 
 .hero__text_description {
-  font-size: 1.5em;
+  font-size: 2.5em;
   margin: 0;
   max-width: 80%;
-  text-shadow: 2px 3px 5px rgba(0, 0, 0, 0.5);
+  font-weight: 400;
 }
 
 .hero__btn_container {
@@ -50,15 +40,20 @@
 .hero__btn {
   background-color: white;
   border-radius: 28px;
-  border: 1px solid white;
+  border: 1px solid #ff3f7b;
   cursor: pointer;
-  color: #d52a9c;
+  color: #ff3f7b;
   padding: 0.5em 1em;
   width: 50%;
   font-size: 1.25rem;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  font-weight: bold;
   margin-top: 1em;
+  font-weight: 500;
+  transition: all 0.4s ease;
+}
+
+.hero__btn:hover {
+  background-color: #ff3f7b;
+  color: white;
 }
 
 .hero__image {
@@ -68,17 +63,7 @@
 
 /* Media Queries */
 
-@media only screen and (max-width: 1150px) {
-  .hero__container {
-    padding: 4em 3em 3em 5em;
-  }
-
-  .hero__image {
-    max-width: 80%;
-  }
-}
-
-@media only screen and (max-width: 960px) {
+@media only screen and (max-width: 1200px) {
   .hero__container {
     flex-direction: column;
     align-items: center;
@@ -89,16 +74,11 @@
   .hero__text_content {
     width: 100%;
     text-align: center;
-    margin-top: 0;
-  }
-
-  .hero__title {
-    font-size: 2.5rem;
+    margin-top: 1em;
   }
 
   .hero__text_description {
     max-width: 100%;
-    font-size: 1.5rem;
   }
 
   .hero__btn_container {
@@ -113,15 +93,15 @@
 
 @media only screen and (max-width: 600px) {
   .hero__title {
-    font-size: 1.9rem;
+    font-size: 2.5rem;
   }
 
   .hero__text_description {
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
 
   .hero__subtext {
-    font-size: 0.75rem;
+    font-size: 1rem;
   }
 
   .hero__btn {

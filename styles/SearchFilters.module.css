@@ -1,0 +1,66 @@
+.additional_filters {
+  display: flex;
+  margin-top: 2em;
+  text-align: center;
+  justify-content: space-around;
+}
+
+.dropdown {
+  margin-top: 10px;
+  width: 95px;
+  text-align: center;
+}
+
+.additional_filters__expereience_required,
+.additional_filters__remote_available,
+.additional_filters__position_type,
+.additional_filters__salary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.additional_filters__expereience_required,
+.additional_filters__remote_available,
+.additional_filters__position_type,
+.additional_filters__salary > label {
+  font-weight: bold;
+}
+
+.additional_filters__salary_input {
+  width: 95px;
+  margin-top: 5px;
+}
+
+/* Media Queries */
+
+@media only screen and (max-width: 750px) {
+  .additional_filters {
+    flex-direction: column;
+  }
+
+  .additional_filters__expereience_required,
+  .additional_filters__remote_available,
+  .additional_filters__position_type,
+  .additional_filters__salary {
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0.5em;
+  }
+
+  .additional_filters__remote_available,
+  .additional_filters__position_type,
+  .additional_filters__salary {
+    margin-top: 0.5rem;
+  }
+
+  .dropdown {
+    margin-top: 0;
+  }
+}
+
+@media only screen and (max-width: 403px) {
+  .additional_filters__salary_input {
+    margin-left: 0px;
+  }
+}
