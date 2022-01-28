@@ -1,0 +1,21 @@
+.link_btn {
+  display: block;
+  text-align: center;
+  background-color: #ff3f7b;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  padding: 0.25em 1em;
+  border: 0;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  width: 80%;
+  margin: 1.5em auto 0.5em auto;
+  font-size: 1.5rem;
+}
+
+.link_btn:link,
+.link_btn:visited,
+.link_btn:hover,
+.link_btn:active {
+  text-decoration: none;
+}

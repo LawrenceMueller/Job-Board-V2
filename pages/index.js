@@ -16,14 +16,7 @@ export default function Home({
       <main className={indexStyles.job_card__container}>
         <SortBy handleSortByChange={handleSortByChange} />
         {jobs.map((job) => (
-          <JobCard
-            individualJob={job}
-            key={job.jobId}
-            handleToggleUserApplicationScreen={
-              handleToggleUserApplicationScreen
-            }
-            previewFlag={false}
-          />
+          <JobCard individualJob={job} key={job.jobId} />
         ))}
       </main>
     </>

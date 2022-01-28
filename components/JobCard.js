@@ -1,6 +1,7 @@
+import Link from 'next/link';
 import { useState } from 'react';
 import { getCurrentDate } from '../functions/GetCurrentDate';
-import { jobContext } from '../context/JobContext';
+import LinkBtn from './LinkBtn';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { FaBookOpen } from 'react-icons/fa';
 import { VscRemoteExplorer } from 'react-icons/vsc';
@@ -9,7 +10,7 @@ import { FaCheckCircle } from 'react-icons/fa';
 
 import jobCardStyles from '../styles/JobCard.module.css';
 
-function JobCard({ individualJob, handleToggleUserApplicationScreen }) {
+function JobCard({ individualJob }) {
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandCard = () => setExpanded(!expanded);
@@ -64,32 +65,11 @@ function JobCard({ individualJob, handleToggleUserApplicationScreen }) {
           className={jobCardStyles.job_card__description}
           dangerouslySetInnerHTML={{ __html: individualJob.description }}
         />
-        <button
-          className={jobCardStyles.job_card__btn}
-          onClick={(e) => {
-            /* 
-            This next line is too prevent event bubbling which took me quite a while
-            to figure out. When the apply button is clicked it propgates the event of
-            a click up the DOM and triggers the handleExpandCard function which would
-            close the job card. Very annoying but glad thier is a simple solution.
-          */
-            e.stopPropagation();
-
-            /*
-            This next part is extremely "hacky". I need to somehow get the individual job
-            into the user application screen so that when they apply I can get that job's id.
-            Because I did not plan this out very well, achieving this through lifting state is a
-            hastel. Since I do not have a global state managment solution, I am just gonna
-            save the job into context. This is not the proper context api with a provider and
-            all that jazz. This is essentially a global variable.
-          */
-            jobContext(individualJob);
-
-            handleToggleUserApplicationScreen();
-          }}
-        >
-          Apply
-        </button>
+        <LinkBtn
+          name={'Apply'}
+          width={'80%'}
+          link={`/jobs/${individualJob.jobId}`}
+        />
       </div>
     </article>
   );
