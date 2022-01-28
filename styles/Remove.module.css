@@ -1,0 +1,66 @@
+.remove_listing_screen___container {
+  display: flex;
+  flex-direction: column;
+  width: min(90%, 650px);
+  margin: 2em auto;
+  align-items: center;
+}
+
+.remove_listing_screen___title {
+  font-size: 1.5rem;
+  margin-bottom: 1em;
+}
+
+.remove_listing_screen___post_id_section,
+.remove_listing_screen___email_contact_section {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.remove_listing_screen___post_id_label,
+.remove_listing_screen___email_contact_label {
+  margin-top: 1em;
+  margin-bottom: 0.5rem;
+}
+
+.remove_listing_screen___post_id_input,
+.remove_listing_screen___email_contact_input {
+  padding: 0.5em 1rem;
+  border-radius: 5px;
+  border: 1px solid grey;
+}
+
+.remove_listing_screen___btn_container {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  margin-top: 1em;
+}
+
+.back_btn {
+  display: inline-block;
+  text-align: center;
+  background-color: #ff3f7b;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  padding: 0.5em 1em;
+  border: 0;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  width: 30%;
+  margin: 1em 10px 1em 0;
+}
+
+.back_btn:link,
+.back_btn:visited,
+.back_btn:hover,
+.back_btn:active {
+  text-decoration: none;
+}
+
+@media only screen and (max-width: 600px) {
+  .remove_listing_screen___title {
+    font-size: 1.5rem;
+  }
+}

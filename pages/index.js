@@ -13,7 +13,7 @@ export default function Home({
   return (
     <>
       <Search />
-      <section className={indexStyles.job_card__container}>
+      <main className={indexStyles.job_card__container}>
         <SortBy handleSortByChange={handleSortByChange} />
         {jobs.map((job) => (
           <JobCard
@@ -25,7 +25,7 @@ export default function Home({
             previewFlag={false}
           />
         ))}
-      </section>
+      </main>
     </>
   );
 }

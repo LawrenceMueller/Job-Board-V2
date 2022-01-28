@@ -22,7 +22,7 @@ function Header() {
           {router.asPath === '/' ? (
             <>
               <Link href='/postjob'>
-                <a className={headerStyles.hero__btn}>Post A Job</a>
+                <a className={headerStyles.hero__btn}>Post a Job</a>
               </Link>
               <Link href='/remove'>
                 <a className={headerStyles.hero__btn}>Remove Listing</a>
@@ -30,7 +30,7 @@ function Header() {
             </>
           ) : (
             <Link href='/'>
-              <a className={headerStyles.hero__btn}>Find A Job</a>
+              <a className={headerStyles.hero__btn}>Find a Job</a>
             </Link>
           )}
         </div>
