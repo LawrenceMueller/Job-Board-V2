@@ -1,14 +1,26 @@
+import { useState } from 'react';
 import Search from '../components/Search';
 import JobCard from '../components/JobCard';
 
 import indexStyles from '../styles/Index.module.css';
 
-import jobs from '../dummyData.json';
+// import jobs from '../dummyData.json';
 
-export default function Home() {
+export default function Home({ data }) {
+  const [jobs, setJobs] = useState([]);
+
+  const search = async () => {
+    const res = await fetch('../api/searchJobListings');
+    const results = await res.json();
+    console.log(results);
+
+    setJobs(results);
+  };
+
   return (
     <>
       <Search />
+      {console.log(data)}
       <main className={indexStyles.job_card__container}>
         {jobs.map((job) => (
           <JobCard individualJob={job} key={job.jobId} />
@@ -16,4 +28,19 @@ export default function Home() {
       </main>
     </>
   );
+}
+
+export async function getStaticProps(context) {
+  const res = await fetch('http://localhost:3000/api/searchJobListings');
+  const data = await res.json();
+
+  if (!data) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: { data }, // will be passed to the page component as props
+  };
 }
