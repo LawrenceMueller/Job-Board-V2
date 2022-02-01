@@ -139,6 +139,19 @@ function Search() {
         <GeneralBtn name='Search' btnFunction={handleSearch} />
         <GeneralBtn name='Clear' btnFunction={handleClearFilters} />
       </div>
+      <div className={searchStyles.sort_by__container}>
+        <h3 className={searchStyles.sort_by__results_text}>Results</h3>
+        <div>
+          <select
+            className={searchStyles.sort_by__select}
+            name='dropdown-to-select-sort-by'
+            onChange={console.log('hello')}
+          >
+            <option value='recent'>Recent</option>
+            <option value='location'>Location</option>
+          </select>
+        </div>
+      </div>
     </div>
   );
 }

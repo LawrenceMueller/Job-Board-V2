@@ -1,8 +1,12 @@
 import generalBtnStyles from '../styles/GeneralBtn.module.css';
 
-function GeneralBtn({ btnFunction, name }) {
+function GeneralBtn({ btnFunction, name, submitFlag }) {
   return (
-    <button onClick={btnFunction} className={generalBtnStyles.btn}>
+    <button
+      type={submitFlag}
+      onClick={btnFunction}
+      className={generalBtnStyles.btn}
+    >
       {name}
     </button>
   );

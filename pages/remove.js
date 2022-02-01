@@ -41,7 +41,7 @@ function Remove() {
           htmlFor='contact-email'
           className={removeStyles.remove_listing_screen___email_contact_label}
         >
-          Contact email for the posting
+          Contact email used for posting
         </label>
         <input
           name='contact-email'

@@ -15,6 +15,7 @@ const SunEditor = dynamic(() => import('suneditor-react'), {
 function Postjob() {
   const [jobTitle, setJobTitle] = useState('');
   const [companyName, setCompanyName] = useState('');
+  const [contactEmail, setContactEmail] = useState('');
   const [companyLocation, setCompanyLocation] = useState('');
   const [jobEmail, setJobEmail] = useState('');
   const [jobLink, setJobLink] = useState('');
@@ -75,7 +76,7 @@ function Postjob() {
   };
 
   const handlePost = () => {
-    console.log(positionDescription);
+    null;
   };
 
   const handleClear = () => {
@@ -93,6 +94,26 @@ function Postjob() {
     setPositionDescription('');
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const form = new FormData(e.target);
+    const formData = Object.fromEntries(form.entries());
+
+    console.log(formData);
+
+    const res = await fetch('../api/createJobListing', {
+      body: JSON.stringify(formData),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+    });
+
+    const result = await res.json();
+    console.log(result);
+  };
+
   useEffect(() => {
     let userApplyLinkChoiceEmail = document.getElementById('email');
     let userApplyLinkChoiceLink = document.getElementById('link');
@@ -106,47 +127,58 @@ function Postjob() {
   }, [jobEmail, jobLink]);
 
   return (
-    <>
+    <form onSubmit={handleSubmit}>
       <div className={postJobStyles.post_job_screen__Container}>
         <h2>Post a job for 60 days! Only X$</h2>
-        <label
-          htmlFor='position-title'
-          className={postJobStyles.post_job_screen__label}
-        >
+        <label htmlFor='title' className={postJobStyles.post_job_screen__label}>
           Title
         </label>
         <input
-          name='position-title'
+          name='title'
           className={postJobStyles.post_job_screen__text_input}
-          placeholder='Position'
+          placeholder='Title'
           type='text'
           value={jobTitle}
           onChange={(e) => setJobTitle(e.target.value)}
         />
         <label
-          htmlFor='company-hiring'
+          htmlFor='companyName'
           className={postJobStyles.post_job_screen__label}
         >
           Name of Company
         </label>
         <input
-          name='company-hiring'
+          name='companyName'
           className={postJobStyles.post_job_screen__text_input}
-          placeholder='Google'
+          placeholder='Company Name'
           type='text'
           value={companyName}
           onChange={(e) => setCompanyName(e.target.value)}
         />
         <label
-          htmlFor='address-of-company'
+          htmlFor='contactEmail'
+          className={postJobStyles.post_job_screen__label}
+        >
+          Contact Email (for receipt)
+        </label>
+        <input
+          name='contactEmail'
+          className={postJobStyles.post_job_screen__text_input}
+          placeholder='Email'
+          type='text'
+          value={contactEmail}
+          onChange={(e) => setContactEmail(e.target.value)}
+        />
+        <label
+          htmlFor='address'
           className={postJobStyles.post_job_screen__label}
         >
           Location
         </label>
         <input
-          name='address-of-company'
+          name='address'
           className={postJobStyles.post_job_screen__text_input}
-          placeholder='city, state code, zip'
+          placeholder='Address'
           type='text'
           value={companyLocation}
           onChange={(e) => setCompanyLocation(e.target.value)}
@@ -164,7 +196,7 @@ function Postjob() {
           jobSalaryTypeChange={handleSalaryTypeChange}
         />
         <label
-          htmlFor='email-address-to-foward-applications'
+          htmlFor='emailForward'
           className={
             (postJobStyles.post_job_screen__label,
             postJobStyles.additional_margin_top)
@@ -173,32 +205,32 @@ function Postjob() {
           Email address to forward applicaitions
         </label>
         <input
-          name='email-address-to-foward-applications'
+          name='emailForward'
           id='email'
           className={postJobStyles.post_job_screen__text_input}
-          placeholder='alexandbob@fakemail.com'
+          placeholder='Email'
           type='text'
           value={jobEmail}
           onChange={(e) => setJobEmail(e.target.value)}
         />
         <p className={postJobStyles.post_job_screen__or}>OR</p>
         <label
-          htmlFor='redirect-link-to-send-applicants-upon-apply'
+          htmlFor='redirectURL'
           className={postJobStyles.post_job_screen__label}
         >
           Redirect link to send candidates
         </label>
         <input
-          name='redirect-link-to-send-applicants-upon-apply'
+          name='redirectURL'
           id='link'
           className={postJobStyles.post_job_screen__text_input}
-          placeholder='https://www.yourcompnay/applications/jobtitle.com'
+          placeholder='URL of internal application'
           type='text'
           value={jobLink}
           onChange={(e) => setJobLink(e.target.value)}
         />
         <label
-          htmlFor='address-of-company-website'
+          htmlFor='companyWebsite'
           className={
             (postJobStyles.post_job_screen__label,
             postJobStyles.additional_margin_top)
@@ -207,15 +239,15 @@ function Postjob() {
           Company Website
         </label>
         <input
-          name='address-of-company-website'
+          name='companyWebsite'
           className={postJobStyles.post_job_screen__text_input}
-          placeholder='https://www.yourcompnay.com'
+          placeholder='Company website'
           type='text'
           value={companyWebsite}
           onChange={(e) => setCompanyWebsite(e.target.value)}
         />
         <label
-          htmlFor='description-of-position'
+          htmlFor='description'
           className={
             (postJobStyles.post_job_screen__label,
             postJobStyles.additional_margin_top)
@@ -224,7 +256,7 @@ function Postjob() {
           Description
         </label>
         <SunEditor
-          name='description-of-position'
+          name='description'
           setOptions={{
             height: 250,
             buttonList: [
@@ -251,14 +283,22 @@ function Postjob() {
         <PreviewJobCard individualJob={positionPreview} />
         <hr className={postJobStyles.hr} />
         <div className={postJobStyles.post_job_screen__btn_container}>
-          <GeneralBtn name='Post!' btnFunction={handlePost} />
-          <GeneralBtn name='Clear' btnFunction={handleClear} />
+          <GeneralBtn
+            name='Post!'
+            btnFunction={handlePost}
+            submitFlag={'submit'}
+          />
+          <GeneralBtn
+            name='Clear'
+            btnFunction={handleClear}
+            submitFlag={'button'}
+          />
           <Link href='/'>
             <a className={postJobStyles.back_btn}>back</a>
           </Link>
         </div>
       </div>
-    </>
+    </form>
   );
 }
 

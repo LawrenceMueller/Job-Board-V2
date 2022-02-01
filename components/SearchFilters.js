@@ -17,12 +17,10 @@ function SearchFilters({
       <div
         className={searchFiltersStyles.additional_filters__expereience_required}
       >
-        <label htmlFor='dropdown-to-select-amount-of-experience'>
-          Expereince (years)
-        </label>
+        <label htmlFor='experience'>Expereince (years)</label>
         <select
           className={searchFiltersStyles.dropdown}
-          name='dropdown-to-select-amount-of-experience'
+          name='experience'
           value={experienceValue}
           onChange={(e) => experienceChange(e.target.value)}
         >
@@ -34,12 +32,10 @@ function SearchFilters({
         </select>
       </div>
       <div className={searchFiltersStyles.additional_filters__remote_available}>
-        <label htmlFor='dropdown-to-select-remote-work-availability'>
-          Telecommute
-        </label>
+        <label htmlFor='telecommute'>Telecommute</label>
         <select
           className={searchFiltersStyles.dropdown}
-          name='dropdown-to-select-remote-work-availability'
+          name='telecommute'
           value={remoteValue}
           onChange={(e) => remoteChange(e.target.value)}
         >
@@ -49,12 +45,10 @@ function SearchFilters({
         </select>
       </div>
       <div className={searchFiltersStyles.additional_filters__position_type}>
-        <label htmlFor='dropdown-to-select-type-of-wage-hourly-or-salary'>
-          Type
-        </label>
+        <label htmlFor='salaryType'>Type</label>
         <select
           className={searchFiltersStyles.dropdown}
-          name='dropdown-to-select-type-of-wage-hourly-or-salary'
+          name='salaryType'
           value={jobTypeValue}
           onChange={(e) => jobTypeChange(e.target.value)}
         >
@@ -66,7 +60,7 @@ function SearchFilters({
         </select>
       </div>
       <div className={searchFiltersStyles.additional_filters__salary}>
-        <label htmlFor='enter-minimum-wage'>Minimum Salary</label>
+        <label htmlFor='minimumSalary'>Minimum Salary</label>
         <div style={{ display: 'inline-grid' }}>
           <select
             className={searchFiltersStyles.dropdown}
@@ -78,7 +72,7 @@ function SearchFilters({
             <option value='hr'>Per Hour</option>
           </select>
           <input
-            name='enter-minimum-wage'
+            name='minimumSalary'
             className={searchFiltersStyles.additional_filters__salary_input}
             placeholder='70000'
             onKeyPress={(event) => {

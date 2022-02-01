@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   width: min(90%, 650px);
-  margin: 2em auto;
+  margin: 2em auto 0 auto;
 }
 
 /* Main search Area */
@@ -74,4 +74,25 @@
   .job_search__position_and_location_container {
     display: block;
   }
+}
+
+/* Sort By styles, used to be its own component. I changed
+   it to be part of search because I thought that it made
+   more sense.
+*/
+
+.sort_by__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1em;
+}
+
+.sort_by__select {
+  margin: 0;
+}
+
+.sort_by__results_text {
+  font-size: 1.5rem;
+  line-height: 25px;
 }
