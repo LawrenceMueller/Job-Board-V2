@@ -26,7 +26,7 @@ function JobCard({ individualJob }) {
             {individualJob.companyName}
           </p>
           <h3 className={jobCardStyles.job_card__title}>
-            {individualJob.positionName}
+            {individualJob.title}
           </h3>
           <p className={jobCardStyles.job_card__posted}>
             Posted:&nbsp;{getCurrentDate()}
@@ -40,18 +40,20 @@ function JobCard({ individualJob }) {
             </p>
             <p className={jobCardStyles.job_card__salary}>
               <FaMoneyBill />
-              &nbsp;${individualJob.salary}/{individualJob.salaryType}
+              &nbsp;${individualJob.minimumSalary}/{individualJob.salaryType}
             </p>
           </div>
           <div>
             <p className={jobCardStyles.job_card__location}>
               <FaMapMarkerAlt />
-              {individualJob.location}
+              {individualJob.address}
             </p>
             <p className={jobCardStyles.job_card__remote}>
               <VscRemoteExplorer />
-              &nbsp;{individualJob.remote}&nbsp;
-              {individualJob.remote === 'Remote' ? <FaCheckCircle /> : null}
+              &nbsp;{individualJob.telecommute}&nbsp;
+              {individualJob.telecommute === 'remote' ? (
+                <FaCheckCircle />
+              ) : null}
             </p>
           </div>
         </div>
@@ -59,7 +61,9 @@ function JobCard({ individualJob }) {
       <div className={expanded ? '' : jobCardStyles.invisible}>
         <p>
           <strong>Website:</strong>{' '}
-          <span className='job-card__website'>{individualJob.website}</span>
+          <span className='job-card__website'>
+            {individualJob.companyWebsite}
+          </span>
         </p>
         <div
           className={jobCardStyles.job_card__description}

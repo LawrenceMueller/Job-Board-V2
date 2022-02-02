@@ -145,7 +145,7 @@ function Search() {
           <select
             className={searchStyles.sort_by__select}
             name='dropdown-to-select-sort-by'
-            onChange={console.log('hello')}
+            onChange={null}
           >
             <option value='recent'>Recent</option>
             <option value='location'>Location</option>

@@ -45,10 +45,10 @@ function SearchFilters({
         </select>
       </div>
       <div className={searchFiltersStyles.additional_filters__position_type}>
-        <label htmlFor='salaryType'>Type</label>
+        <label htmlFor='positionType'>Type</label>
         <select
           className={searchFiltersStyles.dropdown}
-          name='salaryType'
+          name='positionType'
           value={jobTypeValue}
           onChange={(e) => jobTypeChange(e.target.value)}
         >
@@ -60,9 +60,10 @@ function SearchFilters({
         </select>
       </div>
       <div className={searchFiltersStyles.additional_filters__salary}>
-        <label htmlFor='minimumSalary'>Minimum Salary</label>
+        <label htmlFor='salaryType'>Minimum Salary</label>
         <div style={{ display: 'inline-grid' }}>
           <select
+            name='salaryType'
             className={searchFiltersStyles.dropdown}
             value={jobSalaryType}
             onChange={(e) => jobSalaryTypeChange(e.target.value)}
