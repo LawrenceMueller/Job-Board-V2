@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Search from '../components/Search';
 import JobCard from '../components/JobCard';
 
@@ -7,8 +6,6 @@ import indexStyles from '../styles/Index.module.css';
 // import jobs from '../dummyData.json';
 
 export default function Home({ data }) {
-  const [jobs, setJobs] = useState([]);
-
   const search = async () => {
     const res = await fetch('../api/searchJobListings');
     const results = await res.json();
@@ -19,6 +16,7 @@ export default function Home({ data }) {
 
   return (
     <>
+      {console.log(data)}
       <Search />
       <main className={indexStyles.job_card__container}>
         {Object.entries(data)[0][1].map((job) => (

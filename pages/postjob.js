@@ -100,8 +100,6 @@ function Postjob() {
     const form = new FormData(e.target);
     const formData = Object.fromEntries(form.entries());
 
-    console.log(formData);
-
     const res = await fetch('../api/createJobListing', {
       body: JSON.stringify(formData),
       headers: {
