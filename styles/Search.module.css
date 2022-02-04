@@ -31,39 +31,6 @@
   margin-top: 2em;
 }
 
-/* Add skills section */
-
-.skills_for_filter__container {
-  display: flex;
-  flex-direction: column;
-}
-
-.skills_for__filter__add_input_section {
-  display: flex;
-  justify-content: center;
-}
-
-.skills_for_filter__skills_added_section {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.skills_for_filter__label {
-  font-weight: bold;
-  margin: 2em auto 1em auto;
-}
-
-.skills_for_filter__add_btn {
-  background-color: #ff3f7b;
-  border-radius: 5px;
-  cursor: pointer;
-  color: white;
-  border: 0;
-  width: 20%;
-  margin-left: 5px;
-}
-
 /* Media Queries */
 
 @media only screen and (max-width: 525px) {

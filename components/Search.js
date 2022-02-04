@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import SearchFilters from './SearchFilters';
-import IndividualSkill from './IndividualSkill';
 import GeneralBtn from './GeneralBtn';
 
 import searchStyles from '../styles/Search.module.css';
@@ -13,9 +12,6 @@ function Search() {
   const [jobType, setJobType] = useState('');
   const [salary, setSalary] = useState('');
   const [salaryType, setSalaryType] = useState('');
-  const [skillName, setSkillName] = useState('');
-  const [skillsPreview, setSkillsPreview] = useState([]);
-  const [skillsToFilter, setSkillsToFilter] = useState('');
 
   const handleExperienceChange = (experienceChosen) => {
     setExperience(experienceChosen);
@@ -35,20 +31,6 @@ function Search() {
 
   const handleSalaryChange = (salaryValue) => {
     setSalary(salaryValue);
-  };
-
-  const handleAddSkill = (e) => {
-    e.preventDefault();
-
-    if (skillName.length < 1) {
-      alert('The name of the skill you are trying to add is not long enough!');
-    } else {
-      setSkillsPreview([...skillsPreview, skillName]);
-      setSkillsToFilter((skillName) => {
-        skillsToFilter = skillsToFilter + skillName;
-      });
-      setSkillName('');
-    }
   };
 
   const handleSearch = () => {
@@ -138,34 +120,6 @@ function Search() {
           jobSalaryType={salaryType}
           jobSalaryTypeChange={handleSalaryTypeChange}
         />
-        <div className={searchStyles.skills_for_filter__container}>
-          <label
-            htmlFor='skills-to-filter-by'
-            className={searchStyles.skills_for_filter__label}
-          >
-            Filter by Skills
-          </label>
-          <div className={searchStyles.skills_for__filter__add_input_section}>
-            <input
-              name='skills-to-filter-by'
-              placeholder='JavaScirpt'
-              type='text'
-              value={skillName}
-              onChange={(e) => setSkillName(e.target.value)}
-            />
-            <button
-              className={searchStyles.skills_for_filter__add_btn}
-              onClick={handleAddSkill}
-            >
-              Add
-            </button>
-          </div>
-        </div>
-        <div className={searchStyles.skills_for_filter__skills_added_section}>
-          {skillsPreview.map((skill) => {
-            return <IndividualSkill name={skill} key={skill} />;
-          })}
-        </div>
         <div className={searchStyles.job_search__btn_container}>
           <GeneralBtn
             name='Search'
