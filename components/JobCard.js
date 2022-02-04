@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { useState } from 'react';
 import { getCurrentDate } from '../functions/GetCurrentDate';
 import LinkBtn from './LinkBtn';

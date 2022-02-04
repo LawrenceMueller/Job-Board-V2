@@ -20,16 +20,21 @@ function Remove() {
 
     console.log(formData);
 
-    const res = await fetch('../api/removeJobListing', {
-      body: JSON.stringify(formData),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'DELETE',
-    });
-
-    const result = await res.json();
-    console.log(result);
+    try {
+      const res = await fetch('../api/removeJobListing', {
+        body: JSON.stringify(formData),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'DELETE',
+      });
+      const result = await res.json();
+      console.log(result);
+    } catch (error) {
+      console.log('Error with sending the DELETE request');
+      console.log('Here is the trace');
+      console.error(error);
+    }
   };
 
   return (

@@ -16,7 +16,6 @@ export default function Home({ data }) {
 
   return (
     <>
-      {console.log(data)}
       <Search />
       <main className={indexStyles.job_card__container}>
         {Object.entries(data)[0][1].map((job) => (

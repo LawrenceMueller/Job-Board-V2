@@ -100,16 +100,22 @@ function Postjob() {
     const form = new FormData(e.target);
     const formData = Object.fromEntries(form.entries());
 
-    const res = await fetch('../api/createJobListing', {
-      body: JSON.stringify(formData),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-    });
+    try {
+      const res = await fetch('../api/createJobListing', {
+        body: JSON.stringify(formData),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+      });
 
-    const result = await res.json();
-    console.log(result);
+      const result = await res.json();
+      console.log(result);
+    } catch (error) {
+      console.log('Error with sending the POST request');
+      console.log('Here is the trace');
+      console.error(error);
+    }
   };
 
   useEffect(() => {
