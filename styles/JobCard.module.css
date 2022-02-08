@@ -45,6 +45,8 @@
 
 .job_card__description {
   margin-top: 1em;
+  word-wrap: break-word;
+  hyphens: auto;
 }
 
 .invisible {

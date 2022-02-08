@@ -17,7 +17,6 @@ export default function Home({ data }) {
   return (
     <>
       <Search />
-      {console.log(Object.entries(data)[0][1].length)}
       <main className={indexStyles.job_card__container}>
         {Object.entries(data)[0][1].map((job) => (
           <JobCard individualJob={job} key={job.entityId} />
