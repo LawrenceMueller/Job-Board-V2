@@ -54,6 +54,9 @@ function Search() {
     const form = new FormData(e.target);
     const formData = Object.fromEntries(form.entries());
 
+    // Need to format the salary correctly
+    formData.minimumSalary = parseInt(formData.minimumSalary);
+
     console.log(formData);
 
     try {

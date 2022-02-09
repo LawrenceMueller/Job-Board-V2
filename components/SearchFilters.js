@@ -75,7 +75,6 @@ function SearchFilters({
           <input
             name='minimumSalary'
             className={searchFiltersStyles.additional_filters__salary_input}
-            placeholder='70000'
             onKeyPress={(event) => {
               if (!/[0-9]/.test(event.key)) {
                 event.preventDefault();
