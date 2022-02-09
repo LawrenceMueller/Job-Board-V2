@@ -54,17 +54,15 @@ function Search() {
     const form = new FormData(e.target);
     const formData = Object.fromEntries(form.entries());
 
-    console.log(skillsToFilter);
-
     console.log(formData);
 
     try {
-      const res = await fetch('../api/searchJobListings', {
+      const res = await fetch('http://localhost:3000/api/searchJobListings', {
         body: JSON.stringify(formData),
         headers: {
           'Content-Type': 'application/json',
         },
-        method: 'GET',
+        method: 'POST',
       });
 
       const result = await res.json();
@@ -82,25 +80,22 @@ function Search() {
         <div
           className={searchStyles.job_search__position_and_location_container}
         >
-          <label htmlFor='position-title' className={searchStyles.lable_for_SR}>
+          <label htmlFor='title' className={searchStyles.lable_for_SR}>
             Search
           </label>
           <input
-            name='position-title'
+            name='title'
             className={searchStyles.job_search__search_bar}
             placeholder='Position'
             type='text'
             value={position}
             onChange={(e) => setPosition(e.target.value)}
           />
-          <label
-            htmlFor='position-location'
-            className={searchStyles.lable_for_SR}
-          >
+          <label htmlFor='address' className={searchStyles.lable_for_SR}>
             Location
           </label>
           <input
-            name='position-location'
+            name='address'
             className={searchStyles.job_search__search_bar}
             placeholder='Location'
             type='text'
@@ -134,16 +129,6 @@ function Search() {
         </div>
         <div className={searchStyles.sort_by__container}>
           <h3 className={searchStyles.sort_by__results_text}>Results</h3>
-          <div>
-            <select
-              className={searchStyles.sort_by__select}
-              name='dropdown-to-select-sort-by'
-              onChange={null}
-            >
-              <option value='recent'>Recent</option>
-              <option value='location'>Location</option>
-            </select>
-          </div>
         </div>
       </div>
     </form>
