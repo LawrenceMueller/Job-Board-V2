@@ -71,7 +71,7 @@ function JobCard({ individualJob }) {
         <LinkBtn
           name={'Apply'}
           width={'80%'}
-          link={`/jobs/${individualJob.pageId}`}
+          link={`http://localhost:3000/jobs/${individualJob.pageId}`}
         />
       </div>
     </article>

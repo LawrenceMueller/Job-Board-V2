@@ -33,20 +33,28 @@ export default function Home({ data }) {
   }
 }
 
-export async function getStaticProps(context) {
-  const res = await fetch('http://localhost:3000/api/searchJobListings');
-  let data = await res.json();
+export async function getStaticProps() {
+  try {
+    const res = await fetch('http://localhost:3000/api/searchJobListings');
+    let data = await res.json();
 
-  // Need to take the json and format into a simple form
-  data = Object.entries(data)[0][1];
+    // Need to take the json and format into a simple form
+    data = Object.entries(data)[0][1];
 
-  if (!data) {
+    if (!data) {
+      return {
+        notFound: true,
+      };
+    }
+
     return {
-      notFound: true,
+      props: { data }, // will be passed to the page component as props
     };
+  } catch (error) {
+    console.log(
+      'error thrown in the getStaticProps function in the index.js file'
+    );
+    console.log('here is the trace');
+    console.error(error);
   }
-
-  return {
-    props: { data }, // will be passed to the page component as props
-  };
 }

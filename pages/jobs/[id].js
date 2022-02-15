@@ -1,35 +1,36 @@
 // Getting job in props from getStaticProps
-export default function JobPosting({ job }) {
+export default function JobPosting({ jobData }) {
   return (
     <section>
       <h1>Hello</h1>
+      {jobData}
     </section>
   );
 }
 
-export const getStaticPaths = async () => {
-  const res = await fetch('');
-  const data = await res.json();
+export async function getStaticPaths() {
+  console.log('here2');
+  const res = await fetch('http://localhost:3000/api/searchJobListings');
 
-  const paths = data.map((jobPost) => {
-    return {
-      params: { id: jobPost.entityId.toString() },
-    };
-  });
+  let data = await res.json();
+  data = data = Object.entries(data)[0][1];
 
-  return {
-    paths,
-    fallback: false,
-  };
-};
+  const paths = data.map((job) => ({
+    params: { id: job.pageId },
+  }));
 
-// Getting context from getStaticPathts
-export const getStaticProps = async (context) => {
-  const id = context.params.id;
-  const res = await fetch('' + id);
-  const data = await res.json();
+  return { paths, fallback: false };
+}
 
-  return {
-    porps: { job: data },
-  };
-};
+export async function getStaticProps({ params }) {
+  console.log('here');
+  // params contains the post `id`.
+  // If the route is like /posts/1, then params.id is 1
+  const res = await fetch(`http://localhost:3000/jobs/${params.id}`);
+  const jobData = await res.json();
+
+  console.log(jobData);
+
+  // Pass post data to the page via props
+  return { props: { jobData } };
+}
