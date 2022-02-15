@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import GeneralBtn from '../components/GeneralBtn';
+import { useRouter } from 'next/router';
 
 import removeStyles from '../styles/Remove.module.css';
 
 function Remove() {
+  const router = useRouter();
+
   const [uniqueId, setUniqueId] = useState('');
-  const [postEmailContact, setPostEmailContact] = useState('');
 
   const handleRemove = () => {
     null;
@@ -18,8 +20,6 @@ function Remove() {
     const form = new FormData(e.target);
     const formData = Object.fromEntries(form.entries());
 
-    console.log(formData);
-
     try {
       const res = await fetch('../api/removeJobListing', {
         body: JSON.stringify(formData),
@@ -29,7 +29,10 @@ function Remove() {
         method: 'DELETE',
       });
       const result = await res.json();
-      console.log(result);
+
+      result.msg === 'success'
+        ? router.push('/#top')
+        : console.log('failed removing the job listing');
     } catch (error) {
       console.log('Error with sending the DELETE request');
       console.log('Here is the trace');

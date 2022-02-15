@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     const response = await removeJob(removalId);
     response === 'error'
       ? res.status(500).json({ msg: 'Failed to delete listing' })
-      : res.status(200).json({ msg: 'Successfully deleted listing' });
+      : res.status(200).json({ msg: 'success' });
   } catch (error) {
     console.log('Error with calling the remove post method');
     console.log('Here is the trace');
