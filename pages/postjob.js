@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import SearchFilters from '../components/SearchFilters';
 import GeneralBtn from '../components/GeneralBtn';
 import PreviewJobCard from '../components/PreviewJobCard';
@@ -13,6 +14,8 @@ const SunEditor = dynamic(() => import('suneditor-react'), {
 });
 
 function Postjob() {
+  const router = useRouter();
+
   const [jobTitle, setJobTitle] = useState('');
   const [companyName, setCompanyName] = useState('');
   const [contactEmail, setContactEmail] = useState('');
@@ -100,6 +103,9 @@ function Postjob() {
     const form = new FormData(e.target);
     const formData = Object.fromEntries(form.entries());
 
+    // Need to format the salary correctly
+    formData.minimumSalary = parseInt(formData.minimumSalary);
+
     try {
       const res = await fetch('../api/createJobListing', {
         body: JSON.stringify(formData),
@@ -110,7 +116,10 @@ function Postjob() {
       });
 
       const result = await res.json();
-      console.log(result);
+
+      result.msg === 'success'
+        ? router.push('/#top')
+        : console.log('problem with posting the job listing');
     } catch (error) {
       console.log('Error with sending the POST request');
       console.log('Here is the trace');

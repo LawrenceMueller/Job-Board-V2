@@ -9,7 +9,7 @@ function Header() {
   const router = useRouter();
 
   return (
-    <header className={headerStyles.hero__container}>
+    <header className={headerStyles.hero__container} id={'top'}>
       <div className={headerStyles.hero__text_content}>
         <p className={headerStyles.hero__subtext}>
           Find your next career in Software

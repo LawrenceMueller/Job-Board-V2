@@ -1,13 +1,15 @@
-import { useState } from 'react';
-import Search from '../components/Search';
+import { useState, useEffect } from 'react';
 import JobCard from '../components/JobCard';
+import Search from '../components/Search';
 
 import indexStyles from '../styles/Index.module.css';
 
-// import jobs from '../dummyData.json';
-
 export default function Home({ data }) {
-  const [jobs, setJobs] = useState(data);
+  const [jobs, setJobs] = useState([]);
+
+  useEffect(() => {
+    setJobs(data);
+  }, [jobs, data]);
 
   if (jobs.length !== 0) {
     return (

@@ -13,7 +13,7 @@ export const getStaticPaths = async () => {
 
   const paths = data.map((jobPost) => {
     return {
-      params: { id: jobPost.jobId.toString() },
+      params: { id: jobPost.entityId.toString() },
     };
   });
 
