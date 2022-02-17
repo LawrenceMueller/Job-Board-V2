@@ -1,9 +1,45 @@
+import GeneralBtn from '../../../components/GeneralBtn';
+import Link from 'next/link';
+
+import jobDetailsStyles from '../../../styles/jobDetails.module.css';
+
 // Getting job in props from getStaticProps
 export default function JobPosting({ jobDetails }) {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    console.log('handle');
+  };
+
+  const handleApply = async (e) => {
+    null;
+  };
+
+  const handleClear = async (e) => {
+    console.log('clear');
+  };
+
   return (
-    <section>
-      <h1>Hello</h1>
-    </section>
+    <form
+      onSubmit={handleSubmit}
+      className={jobDetailsStyles.job_details__Container}
+    >
+      <div className={jobDetailsStyles.job_details__btn_container}>
+        <GeneralBtn
+          name='Apply!'
+          btnFunction={handleApply}
+          submitFlag={'Send'}
+        />
+        <GeneralBtn
+          name='Clear'
+          btnFunction={handleClear}
+          submitFlag={'button'}
+        />
+        <Link href='/'>
+          <a className={jobDetailsStyles.back_btn}>Back</a>
+        </Link>
+      </div>
+    </form>
   );
 }
 
