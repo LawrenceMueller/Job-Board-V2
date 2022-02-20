@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import GeneralBtn from '../../../components/GeneralBtn';
 import Link from 'next/link';
 import { getCurrentDate } from '../../../functions/GetCurrentDate';
@@ -12,6 +13,13 @@ import jobCardStyles from '../../../styles/JobCard.module.css';
 
 // Getting job in props from getStaticProps
 export default function JobPosting({ jobDetails }) {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [resume, setResume] = useState(null);
+  const [coverLetter, setCoverLetter] = useState(null);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -83,6 +91,86 @@ export default function JobPosting({ jobDetails }) {
           />
         </div>
       </article>
+      <label
+        htmlFor='candidateFirstName'
+        className={jobDetailsStyles.job_details__label}
+      >
+        First Name <span style={{ color: 'red' }}>*</span>
+      </label>
+      <input
+        name='candidateFirstName'
+        className={jobDetailsStyles.job_details__text_input}
+        placeholder='First Name'
+        type='text'
+        value={firstName}
+        onChange={(e) => setFirstName(e.target.value)}
+      />
+      <label
+        htmlFor='candidateLastName'
+        className={jobDetailsStyles.job_details__label}
+      >
+        Last Name <span style={{ color: 'red' }}>*</span>
+      </label>
+      <input
+        name='candidateLastName'
+        className={jobDetailsStyles.job_details__text_input}
+        placeholder='Last Name'
+        type='text'
+        value={lastName}
+        onChange={(e) => setLastName(e.target.value)}
+      />
+      <label
+        htmlFor='candidateEmail'
+        className={jobDetailsStyles.job_details__label}
+      >
+        Email <span style={{ color: 'red' }}>*</span>
+      </label>
+      <input
+        name='candidateEmail'
+        className={jobDetailsStyles.job_details__text_input}
+        placeholder='Email'
+        type='text'
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <label
+        htmlFor='candidatePhone'
+        className={jobDetailsStyles.job_details__label}
+      >
+        Phone <span style={{ color: 'red' }}>*</span>
+      </label>
+      <input
+        name='candidatePhone'
+        className={jobDetailsStyles.job_details__text_input}
+        placeholder='(xxx) xxx-xxxx'
+        type='text'
+        value={phone}
+        onChange={(e) => setPhone(e.target.value)}
+      />
+      <label
+        htmlFor='candidateResume'
+        className={jobDetailsStyles.job_details__label}
+      >
+        Resume <span style={{ color: 'red' }}>*</span>
+      </label>
+      <input
+        name='candidateResume'
+        type='file'
+        value={resume}
+        onChange={(e) => setResume(e.target.files[0])}
+      />
+      <label
+        htmlFor='candidateCoverLetter'
+        className={jobDetailsStyles.job_details__label}
+      >
+        Cover Letter
+      </label>
+      <input
+        name='candidateCoverLetter'
+        type='file'
+        value={coverLetter}
+        onChange={(e) => setCoverLetter(e.target.files[0])}
+      />
       <div className={jobDetailsStyles.job_details__btn_container}>
         <GeneralBtn
           name='Apply!'

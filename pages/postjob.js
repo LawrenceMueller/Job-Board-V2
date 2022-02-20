@@ -144,7 +144,7 @@ function Postjob() {
       <div className={postJobStyles.post_job_screen__Container}>
         <h2>Post a job for 60 days! Only X$</h2>
         <label htmlFor='title' className={postJobStyles.post_job_screen__label}>
-          Title
+          Title <span style={{ color: 'red' }}>*</span>
         </label>
         <input
           name='title'
@@ -158,7 +158,7 @@ function Postjob() {
           htmlFor='companyName'
           className={postJobStyles.post_job_screen__label}
         >
-          Name of Company
+          Name of Company <span style={{ color: 'red' }}>*</span>
         </label>
         <input
           name='companyName'
@@ -172,7 +172,7 @@ function Postjob() {
           htmlFor='contactEmail'
           className={postJobStyles.post_job_screen__label}
         >
-          Contact Email (for receipt)
+          Contact Email (for receipt) <span style={{ color: 'red' }}>*</span>
         </label>
         <input
           name='contactEmail'
@@ -186,7 +186,7 @@ function Postjob() {
           htmlFor='address'
           className={postJobStyles.post_job_screen__label}
         >
-          Location
+          Company Location <span style={{ color: 'red' }}>*</span>
         </label>
         <input
           name='address'
@@ -226,7 +226,9 @@ function Postjob() {
           value={jobEmail}
           onChange={(e) => setJobEmail(e.target.value)}
         />
-        <p className={postJobStyles.post_job_screen__or}>OR</p>
+        <p className={postJobStyles.post_job_screen__or}>
+          OR <span style={{ color: 'red' }}>*</span>
+        </p>
         <label
           htmlFor='redirectURL'
           className={postJobStyles.post_job_screen__label}
@@ -266,7 +268,7 @@ function Postjob() {
             postJobStyles.additional_margin_top)
           }
         >
-          Description
+          Description <span style={{ color: 'red' }}>*</span>
         </label>
         <SunEditor
           name='description'
