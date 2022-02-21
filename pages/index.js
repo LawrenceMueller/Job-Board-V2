@@ -6,19 +6,28 @@ import indexStyles from '../styles/Index.module.css';
 
 export default function Home({ data }) {
   const [jobs, setJobs] = useState([]);
+  const [searchedJobs, setSearchedJobs] = useState(null);
 
   useEffect(() => {
     setJobs(data);
   }, [jobs, data]);
 
+  const handleJobSearch = (jobsReturned) => {
+    setSearchedJobs(jobsReturned);
+  };
+
   if (jobs.length !== 0) {
     return (
       <>
-        <Search />
+        <Search handleJobSearch={handleJobSearch} />
         <main className={indexStyles.job_card__container}>
-          {jobs.map((job) => (
-            <JobCard individualJob={job} key={job.entityId} />
-          ))}
+          {searchedJobs === null
+            ? jobs.map((job) => (
+                <JobCard individualJob={job} key={job.entityId} />
+              ))
+            : searchedJobs.map((job) => (
+                <JobCard individualJob={job} key={job.entityId} />
+              ))}
         </main>
       </>
     );

@@ -4,7 +4,7 @@ import GeneralBtn from './GeneralBtn';
 
 import searchStyles from '../styles/Search.module.css';
 
-function Search() {
+function Search({ handleJobSearch }) {
   const [position, setPosition] = useState('');
   const [experience, setExperience] = useState('');
   const [location, setLocation] = useState('');
@@ -45,7 +45,6 @@ function Search() {
     setJobType('');
     setSalary('');
     setSalaryType('');
-    setSkills([]);
   };
 
   const handleSubmit = async (e) => {
@@ -57,8 +56,6 @@ function Search() {
     // Need to format the salary correctly
     formData.minimumSalary = parseInt(formData.minimumSalary);
 
-    console.log(formData);
-
     try {
       const res = await fetch('http://localhost:3000/api/searchJobListings', {
         body: JSON.stringify(formData),
@@ -69,7 +66,7 @@ function Search() {
       });
 
       const result = await res.json();
-      console.log(result);
+      handleJobSearch(Object.entries(result)[0][1]);
     } catch (error) {
       console.log('Error with sending the POST request');
       console.log('Here is the trace');

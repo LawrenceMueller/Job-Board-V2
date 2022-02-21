@@ -60,7 +60,7 @@ function SearchFilters({
         </select>
       </div>
       <div className={searchFiltersStyles.additional_filters__salary}>
-        <label htmlFor='salaryType'>Minimum Salary</label>
+        <label htmlFor='salaryType'>Compensation</label>
         <div style={{ display: 'inline-grid' }}>
           <select
             name='salaryType'
