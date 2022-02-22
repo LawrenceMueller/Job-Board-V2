@@ -19,7 +19,7 @@ function Header() {
           Job board for developers
         </h2>
         <div className={headerStyles.hero__btn_container}>
-          {router.asPath === '/' ? (
+          {router.asPath === '/' || router.asPath === '/#top' ? (
             <>
               <Link href='/postjob'>
                 <a className={headerStyles.hero__btn}>Post a Job</a>

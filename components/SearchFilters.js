@@ -11,6 +11,7 @@ function SearchFilters({
   jobSalaryChange,
   jobSalaryType,
   jobSalaryTypeChange,
+  forSearch,
 }) {
   return (
     <div className={searchFiltersStyles.additional_filters}>
@@ -45,7 +46,13 @@ function SearchFilters({
         </select>
       </div>
       <div className={searchFiltersStyles.additional_filters__position_type}>
-        <label htmlFor='positionType'>Type</label>
+        {forSearch === true ? (
+          <label htmlFor='positionType'>Type</label>
+        ) : (
+          <label htmlFor='positionType'>
+            Type <span style={{ color: 'red' }}>*</span>
+          </label>
+        )}
         <select
           className={searchFiltersStyles.dropdown}
           name='positionType'

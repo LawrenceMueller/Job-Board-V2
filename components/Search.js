@@ -114,6 +114,7 @@ function Search({ handleJobSearch }) {
           jobSalaryChange={handleSalaryChange}
           jobSalaryType={salaryType}
           jobSalaryTypeChange={handleSalaryTypeChange}
+          forSearch={true}
         />
         <div className={searchStyles.job_search__btn_container}>
           <GeneralBtn
@@ -128,7 +129,9 @@ function Search({ handleJobSearch }) {
           />
         </div>
         <div className={searchStyles.sort_by__container}>
-          <h3 className={searchStyles.sort_by__results_text}>Results</h3>
+          <h3 className={searchStyles.sort_by__results_text}>
+            Results | NP = Not Provided
+          </h3>
         </div>
       </div>
     </form>

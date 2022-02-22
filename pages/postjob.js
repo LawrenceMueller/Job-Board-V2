@@ -103,27 +103,47 @@ function Postjob() {
     const form = new FormData(e.target);
     const formData = Object.fromEntries(form.entries());
 
-    // Need to format the salary correctly
-    formData.minimumSalary = parseInt(formData.minimumSalary);
+    console.log(formData);
 
-    try {
-      const res = await fetch('../api/createJobListing', {
-        body: JSON.stringify(formData),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        method: 'POST',
-      });
+    if (formData.title === '') {
+      console.log('Missing title');
+    } else if (formData.companyName === '') {
+      console.log('Missing company name');
+    } else if (formData.contactEmail === '') {
+      console.log('Missing email for receipt');
+    } else if (formData.location === '') {
+      console.log('Missing company address');
+    } else if (formData.positionType === 'none') {
+      console.log('Missing type of position');
+    } else if (formData.emailForward === '' || formData.redirectURL === '') {
+      console.log(
+        'No email to forard applicants information or no URL provided to redirect applicants'
+      );
+    } else if (formData.description === '') {
+      console.log('No company name');
+    } else {
+      // Need to format the salary correctly
+      formData.minimumSalary = parseInt(formData.minimumSalary);
 
-      const result = await res.json();
+      try {
+        const res = await fetch('../api/createJobListing', {
+          body: JSON.stringify(formData),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          method: 'POST',
+        });
 
-      result.msg === 'success'
-        ? router.push('/#top')
-        : console.log('problem with posting the job listing');
-    } catch (error) {
-      console.log('Error with sending the POST request');
-      console.log('Here is the trace');
-      console.error(error);
+        const result = await res.json();
+
+        result.msg === 'success'
+          ? router.push('/#top')
+          : console.log('problem with posting the job listing');
+      } catch (error) {
+        console.log('Error with sending the POST request');
+        console.log('Here is the trace');
+        console.error(error);
+      }
     }
   };
 
@@ -207,6 +227,7 @@ function Postjob() {
           jobSalaryChange={handleSalaryChange}
           jobSalaryType={positionSalaryType}
           jobSalaryTypeChange={handleSalaryTypeChange}
+          forSearch={false}
         />
         <label
           htmlFor='emailForward'
