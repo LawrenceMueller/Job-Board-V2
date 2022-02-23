@@ -6,6 +6,9 @@ import GeneralBtn from '../components/GeneralBtn';
 import PreviewJobCard from '../components/PreviewJobCard';
 import dynamic from 'next/dynamic';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import postJobStyles from '../styles/PostJob.module.css';
 import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 
@@ -15,6 +18,9 @@ const SunEditor = dynamic(() => import('suneditor-react'), {
 
 function Postjob() {
   const router = useRouter();
+
+  const badNotify = (msg) => toast.error(msg);
+  const goodNotify = (msg) => toast.success(msg);
 
   const [jobTitle, setJobTitle] = useState('');
   const [companyName, setCompanyName] = useState('');
@@ -106,21 +112,21 @@ function Postjob() {
     console.log(formData);
 
     if (formData.title === '') {
-      console.log('Missing title');
+      badNotify('Missing title');
     } else if (formData.companyName === '') {
-      console.log('Missing company name');
+      badNotify('Missing company name');
     } else if (formData.contactEmail === '') {
-      console.log('Missing email for receipt');
-    } else if (formData.location === '') {
-      console.log('Missing company address');
+      badNotify('Missing email for receipt');
+    } else if (formData.address === '') {
+      badNotify('Missing company address');
     } else if (formData.positionType === 'none') {
-      console.log('Missing type of position');
+      badNotify('Missing type of position');
     } else if (formData.emailForward === '' || formData.redirectURL === '') {
-      console.log(
+      badNotify(
         'No email to forard applicants information or no URL provided to redirect applicants'
       );
     } else if (formData.description === '') {
-      console.log('No company name');
+      badNotify('Missing description');
     } else {
       // Need to format the salary correctly
       formData.minimumSalary = parseInt(formData.minimumSalary);
@@ -136,9 +142,14 @@ function Postjob() {
 
         const result = await res.json();
 
-        result.msg === 'success'
-          ? router.push('/#top')
-          : console.log('problem with posting the job listing');
+        if (result.msg === 'success') {
+          goodNotify('Posted successful! Redirecting soon');
+          setTimeout(() => {
+            router.push('/#top');
+          }, 2000);
+        } else {
+          badNotify('Problem with posting the job listing');
+        }
       } catch (error) {
         console.log('Error with sending the POST request');
         console.log('Here is the trace');
@@ -161,6 +172,7 @@ function Postjob() {
 
   return (
     <form onSubmit={handleSubmit}>
+      <ToastContainer />
       <div className={postJobStyles.post_job_screen__Container}>
         <h2>Post a job for 60 days! Only X$</h2>
         <label htmlFor='title' className={postJobStyles.post_job_screen__label}>

@@ -3,10 +3,16 @@ import Link from 'next/link';
 import GeneralBtn from '../components/GeneralBtn';
 import { useRouter } from 'next/router';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import removeStyles from '../styles/Remove.module.css';
 
 function Remove() {
   const router = useRouter();
+
+  const badNotify = (msg) => toast.error(msg);
+  const goodNotify = (msg) => toast.success(msg);
 
   const [uniqueId, setUniqueId] = useState('');
 
@@ -30,9 +36,14 @@ function Remove() {
       });
       const result = await res.json();
 
-      result.msg === 'success'
-        ? router.push('/#top')
-        : console.log('failed removing the job listing');
+      if (result.msg === 'success') {
+        goodNotify('Listing Removed! Redirecting Soon');
+        setTimeout(() => {
+          router.push('/#top');
+        }, 2000);
+      } else {
+        badNotify('Problem with removing the job listing');
+      }
     } catch (error) {
       console.log('Error with sending the DELETE request');
       console.log('Here is the trace');
@@ -42,6 +53,7 @@ function Remove() {
 
   return (
     <form onSubmit={handleSubmit}>
+      <ToastContainer />
       <section className={removeStyles.remove_listing_screen___container}>
         <h2 className={removeStyles.remove_listing_screen___title}>
           Remove your posting from Console.job
