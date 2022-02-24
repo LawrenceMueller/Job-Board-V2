@@ -27,29 +27,46 @@ function JobCard({ individualJob }) {
           <h3 className={jobCardStyles.job_card__title}>
             {individualJob.title}
           </h3>
-          <p className={jobCardStyles.job_card__posted}>
+          <p style={{ marginBottom: '.5em' }}>
             Posted:&nbsp;{getCurrentDate()}
           </p>
+          <strong>Website:</strong>{' '}
+          <span className='job-card__website'>
+            {individualJob.companyWebsite}
+          </span>
         </div>
         <div className={jobCardStyles.job_card__details}>
           <div>
+            <p>Experience:</p>
             <p className={jobCardStyles.job_card__type}>
               <FaBookOpen />
               &nbsp;{individualJob.positionType}
             </p>
             <p className={jobCardStyles.job_card__salary}>
               <FaMoneyBill />
-              &nbsp;${individualJob.minimumSalary}/{individualJob.salaryType}
+              &nbsp;$
+              {individualJob.minimumSalary === ''
+                ? 'NP'
+                : individualJob.minimumSalary}
+              /
+              {individualJob.salaryType === 'none'
+                ? 'NP'
+                : individualJob.salaryType}
             </p>
           </div>
           <div>
+            <p>Junior</p>
             <p className={jobCardStyles.job_card__location}>
               <FaMapMarkerAlt />
               {individualJob.address}
             </p>
             <p className={jobCardStyles.job_card__remote}>
               <VscRemoteExplorer />
-              &nbsp;{individualJob.telecommute}&nbsp;
+              &nbsp;
+              {individualJob.telecommute === 'none'
+                ? 'NP'
+                : individualJob.telecommute}
+              &nbsp;
               {individualJob.telecommute === 'remote' ? (
                 <FaCheckCircle />
               ) : null}
@@ -58,12 +75,6 @@ function JobCard({ individualJob }) {
         </div>
       </div>
       <div className={expanded ? '' : jobCardStyles.invisible}>
-        <p>
-          <strong>Website:</strong>{' '}
-          <span className='job-card__website'>
-            {individualJob.companyWebsite}
-          </span>
-        </p>
         <div
           className={jobCardStyles.job_card__description}
           dangerouslySetInnerHTML={{ __html: individualJob.description }}
