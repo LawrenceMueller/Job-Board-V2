@@ -6,6 +6,7 @@ import { FaBookOpen } from 'react-icons/fa';
 import { VscRemoteExplorer } from 'react-icons/vsc';
 import { FaMoneyBill } from 'react-icons/fa';
 import { FaCheckCircle } from 'react-icons/fa';
+import { FaCreativeCommonsShare } from 'react-icons/fa';
 
 import jobCardStyles from '../styles/JobCard.module.css';
 
@@ -30,16 +31,13 @@ function JobCard({ individualJob }) {
           <p style={{ marginBottom: '.5em' }}>
             Posted:&nbsp;{getCurrentDate()}
           </p>
-          <strong>Website:</strong>{' '}
-          <span className='job-card__website'>
-            {individualJob.companyWebsite}
-          </span>
+          <FaMapMarkerAlt /> {individualJob.state}
+          {', '} {individualJob.city}
         </div>
         <div className={jobCardStyles.job_card__details}>
           <div>
-            <p>Experience:</p>
             <p className={jobCardStyles.job_card__type}>
-              <FaBookOpen />
+              <FaCreativeCommonsShare />
               &nbsp;{individualJob.positionType}
             </p>
             <p className={jobCardStyles.job_card__salary}>
@@ -55,10 +53,11 @@ function JobCard({ individualJob }) {
             </p>
           </div>
           <div>
-            <p>Junior</p>
             <p className={jobCardStyles.job_card__location}>
-              <FaMapMarkerAlt />
-              {individualJob.address}
+              <FaBookOpen />{' '}
+              {individualJob.experience === 'none'
+                ? 'NP'
+                : individualJob.experience}
             </p>
             <p className={jobCardStyles.job_card__remote}>
               <VscRemoteExplorer />
@@ -75,6 +74,12 @@ function JobCard({ individualJob }) {
         </div>
       </div>
       <div className={expanded ? '' : jobCardStyles.invisible}>
+        <strong>Website:</strong>{' '}
+        <span className='job-card__website'>
+          {individualJob.companyWebsite === ''
+            ? 'NP'
+            : individualJob.companyWebsite}
+        </span>
         <div
           className={jobCardStyles.job_card__description}
           dangerouslySetInnerHTML={{ __html: individualJob.description }}

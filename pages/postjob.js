@@ -25,7 +25,10 @@ function Postjob() {
   const [jobTitle, setJobTitle] = useState('');
   const [companyName, setCompanyName] = useState('');
   const [contactEmail, setContactEmail] = useState('');
-  const [companyLocation, setCompanyLocation] = useState('');
+  const [country, setCountry] = useState('');
+  const [state, setState] = useState('');
+  const [city, setCity] = useState('');
+  const [zip, setZip] = useState('');
   const [jobEmail, setJobEmail] = useState('');
   const [jobLink, setJobLink] = useState('');
   const [experienceRequired, setExperienceRequired] = useState('');
@@ -40,7 +43,11 @@ function Postjob() {
     positionName: jobTitle,
     companyName: companyName,
     positionType: positionType,
-    location: companyLocation,
+    country: country,
+    state: state,
+    city: city,
+    zip: zip,
+    experience: experienceRequired,
     applicationEmail: jobEmail,
     applicationRedirect: jobLink,
     salaryType: positionSalaryType,
@@ -54,8 +61,12 @@ function Postjob() {
     positionPreview.positionName = jobTitle;
     positionPreview.companyName = companyName;
     positionPreview.positionType = positionType;
-    positionPreview.location = companyLocation;
+    positionPreview.country = country;
+    positionPreview.state = state;
+    positionPreview.city = city;
+    positionPreview.zip = zip;
     positionPreview.applicationEmail = jobEmail;
+    positionPreview.experience = experienceRequired;
     positionPreview.applicationRedirect = jobLink;
     positionPreview.salaryType = positionSalaryType;
     positionPreview.salary = positionSalary;
@@ -91,9 +102,13 @@ function Postjob() {
   const handleClear = () => {
     setJobTitle('');
     setCompanyName('');
-    setCompanyLocation('');
+    setContactEmail('');
     setJobEmail('');
     setJobLink('');
+    setCountry('');
+    setState('');
+    setCity('');
+    setZip('');
     setExperienceRequired('');
     setRemoteAvailable('');
     setPositionType('');
@@ -109,16 +124,20 @@ function Postjob() {
     const form = new FormData(e.target);
     const formData = Object.fromEntries(form.entries());
 
-    console.log(formData);
-
     if (formData.title === '') {
       badNotify('Missing title');
     } else if (formData.companyName === '') {
       badNotify('Missing company name');
     } else if (formData.contactEmail === '') {
       badNotify('Missing email for receipt');
-    } else if (formData.address === '') {
-      badNotify('Missing company address');
+    } else if (formData.country === '') {
+      badNotify('Missing country');
+    } else if (formData.state === '' || formData.state.length < 3) {
+      badNotify('Missing state or you need to spell it out completely');
+    } else if (formData.city === '') {
+      badNotify('Missing city');
+    } else if (formData.zip === '') {
+      badNotify('Missing zip');
     } else if (formData.positionType === 'none') {
       badNotify('Missing type of position');
     } else if (formData.emailForward === '' || formData.redirectURL === '') {
@@ -130,6 +149,8 @@ function Postjob() {
     } else {
       // Need to format the salary correctly
       formData.minimumSalary = parseInt(formData.minimumSalary);
+
+      console.log(formData);
 
       try {
         const res = await fetch('../api/createJobListing', {
@@ -214,19 +235,43 @@ function Postjob() {
           value={contactEmail}
           onChange={(e) => setContactEmail(e.target.value)}
         />
-        <label
-          htmlFor='address'
-          className={postJobStyles.post_job_screen__label}
-        >
+        <label className={postJobStyles.post_job_screen__label}>
           Company Location <span style={{ color: 'red' }}>*</span>
         </label>
         <input
-          name='address'
+          name='country'
           className={postJobStyles.post_job_screen__text_input}
-          placeholder='Address'
+          style={{ marginBottom: '10px' }}
+          placeholder='Country'
           type='text'
-          value={companyLocation}
-          onChange={(e) => setCompanyLocation(e.target.value)}
+          value={country}
+          onChange={(e) => setCountry(e.target.value)}
+        />
+        <input
+          name='state'
+          className={postJobStyles.post_job_screen__text_input}
+          style={{ marginBottom: '10px' }}
+          placeholder='State/Territory'
+          type='text'
+          value={state}
+          onChange={(e) => setState(e.target.value)}
+        />
+        <input
+          name='city'
+          className={postJobStyles.post_job_screen__text_input}
+          style={{ marginBottom: '10px' }}
+          placeholder='City'
+          type='text'
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+        />
+        <input
+          name='zip'
+          className={postJobStyles.post_job_screen__text_input}
+          placeholder='Zipcode'
+          type='text'
+          value={zip}
+          onChange={(e) => setZip(e.target.value)}
         />
         <SearchFilters
           experienceValue={experienceRequired}

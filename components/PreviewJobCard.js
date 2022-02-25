@@ -5,13 +5,17 @@ import { FaBookOpen } from 'react-icons/fa';
 import { VscRemoteExplorer } from 'react-icons/vsc';
 import { FaMoneyBill } from 'react-icons/fa';
 import { FaCheckCircle } from 'react-icons/fa';
+import { FaCreativeCommonsShare } from 'react-icons/fa';
 
 import jobCardStyles from '../styles/JobCard.module.css';
 
 function PreviewJobCard({ individualJob }) {
   const [expanded, setExpanded] = useState(false);
 
-  const handleExpandCard = () => setExpanded(!expanded);
+  const handleExpandCard = () => {
+    setExpanded(!expanded);
+    console.log(individualJob);
+  };
 
   return (
     <article
@@ -29,11 +33,13 @@ function PreviewJobCard({ individualJob }) {
           <p className={jobCardStyles.job_card__posted}>
             Posted:&nbsp;{getCurrentDate()}
           </p>
+          <FaMapMarkerAlt /> {individualJob.state}
+          {', '} {individualJob.city}
         </div>
         <div className={jobCardStyles.job_card__details}>
           <div>
             <p className={jobCardStyles.job_card__type}>
-              <FaBookOpen />
+              <FaCreativeCommonsShare />
               &nbsp;{individualJob.positionType}
             </p>
             <p className={jobCardStyles.job_card__salary}>
@@ -43,8 +49,7 @@ function PreviewJobCard({ individualJob }) {
           </div>
           <div>
             <p className={jobCardStyles.job_card__location}>
-              <FaMapMarkerAlt />
-              {individualJob.location}
+              <FaBookOpen /> {individualJob.experience}
             </p>
             <p className={jobCardStyles.job_card__remote}>
               <VscRemoteExplorer />
