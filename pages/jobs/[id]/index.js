@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import GeneralBtn from '../../../components/GeneralBtn';
 import Link from 'next/link';
-import { getCurrentDate } from '../../../functions/GetCurrentDate';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { FaBookOpen } from 'react-icons/fa';
 import { VscRemoteExplorer } from 'react-icons/vsc';
 import { FaMoneyBill } from 'react-icons/fa';
 import { FaCheckCircle } from 'react-icons/fa';
+import { timeDifference } from '../../../functions/timeDifference';
+import { FaCreativeCommonsShare } from 'react-icons/fa';
 
 import jobDetailsStyles from '../../../styles/jobDetails.module.css';
 import jobCardStyles from '../../../styles/JobCard.module.css';
@@ -39,6 +40,7 @@ export default function JobPosting({ jobDetails }) {
       onSubmit={handleSubmit}
       className={jobDetailsStyles.job_details__Container}
     >
+      {console.log(jobDetails[0])}
       <article className={jobDetailsStyles.job_card__card_application}>
         <div className={jobCardStyles.job_card__information}>
           <div className={jobCardStyles.job_card__at_a_glance}>
@@ -48,14 +50,18 @@ export default function JobPosting({ jobDetails }) {
             <h3 className={jobCardStyles.job_card__title}>
               {jobDetails[0].title}
             </h3>
-            <p className={jobCardStyles.job_card__posted}>
-              Posted:&nbsp;{getCurrentDate()}
+            <p className={jobCardStyles.job_card__mb_half_em}>
+              Posted:&nbsp;{timeDifference(jobDetails[0].postedTime)}
+            </p>
+            <p className={jobCardStyles.job_card__mb_half_em}>
+              <FaMapMarkerAlt /> {jobDetails[0].state}
+              {', '} {jobDetails[0].city}
             </p>
           </div>
           <div className={jobCardStyles.job_card__details}>
             <div>
               <p className={jobCardStyles.job_card__type}>
-                <FaBookOpen />
+                <FaCreativeCommonsShare />
                 &nbsp;{jobDetails[0].positionType}
               </p>
               <p className={jobCardStyles.job_card__salary}>
@@ -64,9 +70,11 @@ export default function JobPosting({ jobDetails }) {
               </p>
             </div>
             <div>
-              <p className={jobCardStyles.job_card__location}>
-                <FaMapMarkerAlt />
-                {jobDetails[0].address}
+              <p className={jobCardStyles.job_card__experience}>
+                <FaBookOpen />{' '}
+                {jobDetails[0].experience === 'none'
+                  ? 'NP'
+                  : jobDetails[0].experience}
               </p>
               <p className={jobCardStyles.job_card__remote}>
                 <VscRemoteExplorer />
@@ -81,8 +89,10 @@ export default function JobPosting({ jobDetails }) {
         <div>
           <p>
             Website:{' '}
-            <span className={jobCardStyles.job_card__website}>
-              {jobDetails[0].website}
+            <span className='job-card__website'>
+              {jobDetails[0].companyWebsite === ''
+                ? 'NP'
+                : jobDetails[0].companyWebsite}
             </span>
           </p>
           <div

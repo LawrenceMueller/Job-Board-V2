@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { getCurrentDate } from '../functions/GetCurrentDate';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { FaBookOpen } from 'react-icons/fa';
 import { VscRemoteExplorer } from 'react-icons/vsc';
@@ -30,11 +29,11 @@ function PreviewJobCard({ individualJob }) {
           <h3 className={jobCardStyles.job_card__title}>
             {individualJob.positionName}
           </h3>
-          <p className={jobCardStyles.job_card__posted}>
-            Posted:&nbsp;{getCurrentDate()}
+          <p className={jobCardStyles.job_card__mb_half_em}>Posted: Today</p>
+          <p className={jobCardStyles.job_card__mb_half_em}>
+            <FaMapMarkerAlt /> {individualJob.state}
+            {', '} {individualJob.city}
           </p>
-          <FaMapMarkerAlt /> {individualJob.state}
-          {', '} {individualJob.city}
         </div>
         <div className={jobCardStyles.job_card__details}>
           <div>
@@ -48,7 +47,7 @@ function PreviewJobCard({ individualJob }) {
             </p>
           </div>
           <div>
-            <p className={jobCardStyles.job_card__location}>
+            <p className={jobCardStyles.job_card__experience}>
               <FaBookOpen /> {individualJob.experience}
             </p>
             <p className={jobCardStyles.job_card__remote}>

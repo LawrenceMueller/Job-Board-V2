@@ -23,16 +23,10 @@ export default function Home({ data }) {
         <main className={indexStyles.job_card__container}>
           {searchedJobs === null
             ? jobs.map((job) => (
-                <>
-                  {console.log(job.title)}
-                  <JobCard individualJob={job} key={job.entityId} />
-                </>
+                <JobCard individualJob={job} key={job.pageId} />
               ))
             : searchedJobs.map((job) => (
-                <>
-                  {console.log(job.title)}
-                  <JobCard individualJob={job} key={job.entityId} />
-                </>
+                <JobCard individualJob={job} key={job.pageId} />
               ))}
         </main>
       </>
@@ -53,7 +47,7 @@ export async function getStaticProps() {
     const res = await fetch('http://localhost:3000/api/searchJobListings');
     let data = await res.json();
 
-    // Need to take the json and format into a simple form
+    // Need to take the response and format it for mapping over
     data = Object.entries(data)[0][1];
 
     if (!data) {

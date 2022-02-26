@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { getCurrentDate } from '../functions/GetCurrentDate';
 import LinkBtn from './LinkBtn';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { FaBookOpen } from 'react-icons/fa';
@@ -29,12 +28,13 @@ function JobCard({ individualJob }) {
           <h3 className={jobCardStyles.job_card__title}>
             {individualJob.title}
           </h3>
-          {console.log(timeDifference(individualJob.postedTime))}
-          <p style={{ marginBottom: '.5em' }}>
+          <p className={jobCardStyles.job_card__mb_half_em}>
             Posted:&nbsp;{timeDifference(individualJob.postedTime)}
           </p>
-          <FaMapMarkerAlt /> {individualJob.state}
-          {', '} {individualJob.city}
+          <p className={jobCardStyles.job_card__mb_half_em}>
+            <FaMapMarkerAlt /> {individualJob.state}
+            {', '} {individualJob.city}
+          </p>
         </div>
         <div className={jobCardStyles.job_card__details}>
           <div>
@@ -55,7 +55,7 @@ function JobCard({ individualJob }) {
             </p>
           </div>
           <div>
-            <p className={jobCardStyles.job_card__location}>
+            <p className={jobCardStyles.job_card__experience}>
               <FaBookOpen />{' '}
               {individualJob.experience === 'none'
                 ? 'NP'
@@ -76,8 +76,8 @@ function JobCard({ individualJob }) {
         </div>
       </div>
       <div className={expanded ? '' : jobCardStyles.invisible}>
-        <strong>Website:</strong>{' '}
-        <span className='job-card__website'>
+        <strong className={'jobCardStyles.job_card__website'}>Website:</strong>{' '}
+        <span>
           {individualJob.companyWebsite === ''
             ? 'NP'
             : individualJob.companyWebsite}

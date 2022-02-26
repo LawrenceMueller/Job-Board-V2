@@ -1,11 +1,7 @@
-import { getCurrentDate } from './GetCurrentDate';
-
 /*
   A function to determine the amount of time a job has been posted
 */
 export function timeDifference(jobListingDate) {
-  console.log(typeof jobListingDate);
-
   // To set two dates to two variables
   var date1 = new Date(jobListingDate);
   var date2 = new Date();
