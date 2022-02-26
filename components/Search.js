@@ -2,9 +2,14 @@ import { useState } from 'react';
 import SearchFilters from './SearchFilters';
 import GeneralBtn from './GeneralBtn';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import searchStyles from '../styles/Search.module.css';
 
 function Search({ handleJobSearch }) {
+  const badNotify = (msg) => toast.error(msg);
+
   const [position, setPosition] = useState('');
   const [experience, setExperience] = useState('');
   const [location, setLocation] = useState('');
@@ -56,26 +61,31 @@ function Search({ handleJobSearch }) {
     // Need to format the salary correctly
     formData.minimumSalary = parseInt(formData.minimumSalary);
 
-    try {
-      const res = await fetch('http://localhost:3000/api/searchJobListings', {
-        body: JSON.stringify(formData),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        method: 'POST',
-      });
+    if (formData.address !== '' && formData.address.length < 5) {
+      badNotify('Zipcode entered is too short');
+    } else {
+      try {
+        const res = await fetch('http://localhost:3000/api/searchJobListings', {
+          body: JSON.stringify(formData),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          method: 'POST',
+        });
 
-      const result = await res.json();
-      handleJobSearch(Object.entries(result)[0][1]);
-    } catch (error) {
-      console.log('Error with sending the POST request');
-      console.log('Here is the trace');
-      console.error(error);
+        const result = await res.json();
+        handleJobSearch(Object.entries(result)[0][1]);
+      } catch (error) {
+        console.log('Error with sending the POST request');
+        console.log('Here is the trace');
+        console.error(error);
+      }
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      <ToastContainer />
       <div className={searchStyles.job_search__container}>
         <div
           className={searchStyles.job_search__position_and_location_container}
@@ -97,9 +107,14 @@ function Search({ handleJobSearch }) {
           <input
             name='address'
             className={searchStyles.job_search__search_bar}
-            placeholder='Location'
+            placeholder='Zip | US & CAN Only'
             type='text'
             value={location}
+            onKeyPress={(event) => {
+              if (!/[0-9]/.test(event.key)) {
+                event.preventDefault();
+              }
+            }}
             onChange={(e) => setLocation(e.target.value)}
           />
         </div>

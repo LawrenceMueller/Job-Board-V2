@@ -26,10 +26,10 @@ function SearchFilters({
           onChange={(e) => experienceChange(e.target.value)}
         >
           <option value='none'>-</option>
-          <option value='entry'>0 - 1</option>
-          <option value='junior'>1 - 3</option>
-          <option value='mid'>3 - 5</option>
-          <option value='senior'>5+</option>
+          <option value='entry'>Entry (0-1)</option>
+          <option value='junior'>Junior (1-3)</option>
+          <option value='mid'>Mid (3-5)</option>
+          <option value='senior'>Senior (5+)</option>
         </select>
       </div>
       <div className={searchFiltersStyles.additional_filters__remote_available}>
