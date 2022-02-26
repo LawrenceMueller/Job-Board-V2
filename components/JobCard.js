@@ -7,6 +7,7 @@ import { VscRemoteExplorer } from 'react-icons/vsc';
 import { FaMoneyBill } from 'react-icons/fa';
 import { FaCheckCircle } from 'react-icons/fa';
 import { FaCreativeCommonsShare } from 'react-icons/fa';
+import { timeDifference } from '../functions/timeDifference';
 
 import jobCardStyles from '../styles/JobCard.module.css';
 
@@ -28,8 +29,9 @@ function JobCard({ individualJob }) {
           <h3 className={jobCardStyles.job_card__title}>
             {individualJob.title}
           </h3>
+          {console.log(timeDifference(individualJob.postedTime))}
           <p style={{ marginBottom: '.5em' }}>
-            Posted:&nbsp;{getCurrentDate()}
+            Posted:&nbsp;{timeDifference(individualJob.postedTime)}
           </p>
           <FaMapMarkerAlt /> {individualJob.state}
           {', '} {individualJob.city}
