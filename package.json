@@ -15,8 +15,7 @@
     "react-toastify": "^8.2.0",
     "redis-om": "^0.1.7",
     "suneditor-react": "^3.3.1",
-    "uuid": "^8.3.2",
-    "zipcodes": "^8.0.0"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "eslint": "8.7.0",

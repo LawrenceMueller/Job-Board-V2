@@ -107,7 +107,7 @@ function Search({ handleJobSearch }) {
           <input
             name='address'
             className={searchStyles.job_search__search_bar}
-            placeholder='Zip | US & CAN Only'
+            placeholder='ZipCode | US Only'
             type='text'
             value={location}
             onKeyPress={(event) => {
