@@ -61,8 +61,8 @@ function Search({ handleJobSearch }) {
     // Need to format the salary correctly
     formData.minimumSalary = parseInt(formData.minimumSalary);
 
-    if (formData.address !== '' && formData.address.length < 5) {
-      badNotify('Zipcode entered is too short');
+    if (formData.address !== '' && formData.address.length < 3) {
+      badNotify('Address entered is too short');
     } else {
       try {
         const res = await fetch('http://localhost:3000/api/searchJobListings', {
@@ -107,14 +107,9 @@ function Search({ handleJobSearch }) {
           <input
             name='address'
             className={searchStyles.job_search__search_bar}
-            placeholder='ZipCode | US Only'
+            placeholder='Location Address'
             type='text'
             value={location}
-            onKeyPress={(event) => {
-              if (!/[0-9]/.test(event.key)) {
-                event.preventDefault();
-              }
-            }}
             onChange={(e) => setLocation(e.target.value)}
           />
         </div>
