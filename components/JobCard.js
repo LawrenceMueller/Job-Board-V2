@@ -86,11 +86,21 @@ function JobCard({ individualJob }) {
           className={jobCardStyles.job_card__description}
           dangerouslySetInnerHTML={{ __html: individualJob.description }}
         />
-        <LinkBtn
-          name={'Apply'}
-          width={'80%'}
-          link={`http://localhost:3000/jobs/${individualJob.pageId}`}
-        />
+        {individualJob.emailForward ? (
+          <LinkBtn
+            name={'Apply'}
+            width={'80%'}
+            link={`http://localhost:3000/jobs/${individualJob.pageId}`}
+            newTab={false}
+          />
+        ) : (
+          <LinkBtn
+            name={'Apply'}
+            width={'80%'}
+            link={`${individualJob.redirectURL}`}
+            newTab={true}
+          />
+        )}
       </div>
     </article>
   );

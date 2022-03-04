@@ -2,12 +2,22 @@ import Link from 'next/link';
 
 import linkBtnStyles from '../styles/LinkBtn.module.css';
 
-function LinkBtn({ name, width, link }) {
+function LinkBtn({ name, width, link, newTab }) {
   return (
     <Link href={link}>
-      <a style={{ width: width }} className={linkBtnStyles.link_btn}>
-        {name}
-      </a>
+      {newTab ? (
+        <a
+          style={{ width: width }}
+          className={linkBtnStyles.link_btn}
+          target='_blank'
+        >
+          {name}
+        </a>
+      ) : (
+        <a style={{ width: width }} className={linkBtnStyles.link_btn}>
+          {name}
+        </a>
+      )}
     </Link>
   );
 }
