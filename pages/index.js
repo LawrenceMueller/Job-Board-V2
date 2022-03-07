@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import JobCard from '../components/JobCard';
 import Search from '../components/Search';
+import Head from 'next/head';
 
 import indexStyles from '../styles/Index.module.css';
 
@@ -19,6 +20,11 @@ export default function Home({ data }) {
   if (jobs.length !== 0) {
     return (
       <>
+        <Head>
+          <title>
+            Console.job | The best job board for software developers!
+          </title>
+        </Head>
         <Search handleJobSearch={handleJobSearch} />
         <main className={indexStyles.job_card__container}>
           {searchedJobs === null
@@ -33,11 +39,18 @@ export default function Home({ data }) {
     );
   } else {
     return (
-      <div className={indexStyles.no_jobs}>
-        <h3>No jobs are currently listed</h3>
-        <br />
-        <h3>Post one using the button above!</h3>
-      </div>
+      <>
+        <Head>
+          <title>
+            Console.job | The best job board for software developers!
+          </title>
+        </Head>
+        <div className={indexStyles.no_jobs}>
+          <h3>No jobs are currently listed</h3>
+          <br />
+          <h3>Post one using the button above!</h3>
+        </div>
+      </>
     );
   }
 }

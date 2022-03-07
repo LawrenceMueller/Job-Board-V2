@@ -29,8 +29,8 @@ function PreviewJobCard({ individualJob }) {
           <h3 className={jobCardStyles.job_card__title}>
             {individualJob.positionName}
           </h3>
-          <p className={jobCardStyles.job_card__mb_half_em}>Posted: Today</p>
-          <p className={jobCardStyles.job_card__mb_half_em}>
+          <p className={jobCardStyles.job_card__mb_15_px}>Posted: Today</p>
+          <p className={jobCardStyles.job_card__mb_15_px}>
             <FaMapMarkerAlt /> {individualJob.state}
             {', '} {individualJob.city}
           </p>
@@ -60,7 +60,7 @@ function PreviewJobCard({ individualJob }) {
       </div>
       <div className={expanded ? '' : jobCardStyles.invisible}>
         <p>
-          Website:{' '}
+          <strong className={jobCardStyles.job_card__website}>Website:</strong>{' '}
           <span className={jobCardStyles.job_card__website}>
             {individualJob.website}
           </span>

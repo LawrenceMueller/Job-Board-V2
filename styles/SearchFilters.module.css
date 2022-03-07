@@ -64,3 +64,14 @@
     margin-left: 0px;
   }
 }
+
+/* Special class needed to provide label for the salary innput field */
+.additional_filters__special_label {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}

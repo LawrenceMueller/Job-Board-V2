@@ -28,10 +28,10 @@ function JobCard({ individualJob }) {
           <h3 className={jobCardStyles.job_card__title}>
             {individualJob.title}
           </h3>
-          <p className={jobCardStyles.job_card__mb_half_em}>
+          <p className={jobCardStyles.job_card__mb_15_px}>
             Posted:&nbsp;{timeDifference(individualJob.postedTime)}
           </p>
-          <p className={jobCardStyles.job_card__mb_half_em}>
+          <p className={jobCardStyles.job_card__mb_15_px}>
             <FaMapMarkerAlt /> {individualJob.state}
             {', '} {individualJob.city}
           </p>
@@ -76,7 +76,7 @@ function JobCard({ individualJob }) {
         </div>
       </div>
       <div className={expanded ? '' : jobCardStyles.invisible}>
-        <strong className={'jobCardStyles.job_card__website'}>Website:</strong>{' '}
+        <strong className={jobCardStyles.job_card__website}>Website:</strong>{' '}
         <span>
           {individualJob.companyWebsite === ''
             ? 'NP'

@@ -36,12 +36,11 @@
 
 .job_card__company,
 .job_card__title {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .job_card__website {
-  text-decoration: underline;
-  margin-top: 15px;
+  text-decoration: none;
 }
 
 .job_card__description {
@@ -91,6 +90,6 @@
   }
 }
 /* Utility */
-.job_card__mb_half_em {
-  margin-bottom: 0.5em;
+.job_card__mb_15_px {
+  margin-bottom: 15px;
 }

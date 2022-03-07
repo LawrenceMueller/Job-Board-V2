@@ -79,6 +79,12 @@ function SearchFilters({
             <option value='yr'>Per Year</option>
             <option value='hr'>Per Hour</option>
           </select>
+          <label
+            className={searchFiltersStyles.additional_filters__special_label}
+            htmlFor='minimumSalary'
+          >
+            Compensation Number
+          </label>
           <input
             name='minimumSalary'
             className={searchFiltersStyles.additional_filters__salary_input}
