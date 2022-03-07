@@ -80,10 +80,10 @@ function SearchFilters({
             <option value='hr'>Per Hour</option>
           </select>
           <label
-            className={searchFiltersStyles.additional_filters__special_label}
             htmlFor='minimumSalary'
+            className={searchFiltersStyles.additional_filters__special_label}
           >
-            Compensation Number
+            Compensation
           </label>
           <input
             name='minimumSalary'

@@ -1,5 +1,5 @@
 .job_card__card {
-  border: 1px solid #ff3f7b;
+  border: 1px solid #e21865;
   padding: 1em;
   border-radius: 8px;
   margin: 1.25em 0;
@@ -56,7 +56,7 @@
 .job_card__btn {
   display: block;
   text-align: center;
-  background-color: #ff3f7b;
+  background-color: #e21865;
   border-radius: 5px;
   cursor: pointer;
   color: white;

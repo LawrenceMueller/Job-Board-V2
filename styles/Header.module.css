@@ -40,9 +40,9 @@
 .hero__btn {
   background-color: white;
   border-radius: 28px;
-  border: 1px solid #ff3f7b;
+  border: 1px solid #e21865;
   cursor: pointer;
-  color: #ff3f7b;
+  color: #e21865;
   padding: 0.5em 1em;
   width: 50%;
   font-size: 1.25rem;
@@ -60,7 +60,7 @@
 }
 
 .hero__btn:hover {
-  background-color: #ff3f7b;
+  background-color: #e21865;
   color: white;
 }
 
