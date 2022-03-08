@@ -66,7 +66,7 @@ function Search({ handleJobSearch }) {
     } else {
       try {
         const res = await fetch('http://localhost:3000/api/searchJobListings', {
-          body: JSON.stringify(formData),
+          body: formData,
           headers: {
             'Content-Type': 'application/json',
           },

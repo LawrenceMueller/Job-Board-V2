@@ -25,15 +25,47 @@ export default function JobPosting({ jobDetails }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log('handle');
+    const thisForm = document.getElementById('signup');
+
+    let form = new FormData(thisForm);
+    form.append('resume', resume);
+    form.append('coverLetter', coverLetter);
+    const formData = Object.fromEntries(form.entries());
+
+    try {
+      const res = await fetch('http://localhost:3000/api/applyForJob', {
+        body: JSON.stringify(formData),
+        headers: { 'Content-Type': 'multipart/form-data' },
+        method: 'POST',
+      });
+
+      const result = await res.json();
+      console.log(result);
+    } catch (error) {
+      console.log('Error with sending the POST request');
+      console.log('Here is the trace');
+      console.error(error);
+    }
   };
 
   const handleApply = async (e) => {
     null;
   };
 
-  const handleClear = async (e) => {
-    console.log('clear');
+  const handleClear = () => {
+    setFirstName('');
+    setLastName('');
+    setEmail('');
+    setResume();
+    setCoverLetter();
+  };
+
+  const resumeChangeHandler = (event) => {
+    setResume(event.target.files[0]);
+  };
+
+  const coverLetterChangeHandler = (event) => {
+    setCoverLetter(event.target.files[0]);
   };
 
   return (
@@ -44,6 +76,7 @@ export default function JobPosting({ jobDetails }) {
       <form
         onSubmit={handleSubmit}
         className={jobDetailsStyles.job_details__Container}
+        id='signup'
       >
         <article className={jobDetailsStyles.job_card__card_application}>
           <div className={jobCardStyles.job_card__information}>
@@ -93,8 +126,10 @@ export default function JobPosting({ jobDetails }) {
           </div>
           <div>
             <p>
-              Website:{' '}
-              <span className={jobCardStyles.job_card__website}>
+              <strong className={jobCardStyles.job_card__website}>
+                Website:
+              </strong>{' '}
+              <span>
                 {jobDetails[0].companyWebsite === ''
                   ? 'NP'
                   : jobDetails[0].companyWebsite}
@@ -169,10 +204,9 @@ export default function JobPosting({ jobDetails }) {
           Resume <span style={{ color: 'red' }}>*</span>
         </label>
         <input
-          name='candidateResume'
           type='file'
-          value={resume}
-          onChange={(e) => setResume(e.target.files[0])}
+          name='candidateResume'
+          onChange={resumeChangeHandler}
         />
         <label
           htmlFor='candidateCoverLetter'
@@ -181,10 +215,9 @@ export default function JobPosting({ jobDetails }) {
           Cover Letter
         </label>
         <input
-          name='candidateCoverLetter'
           type='file'
-          value={coverLetter}
-          onChange={(e) => setCoverLetter(e.target.files[0])}
+          name='candidateCoverLetter'
+          onChange={coverLetterChangeHandler}
         />
         <div className={jobDetailsStyles.job_details__btn_container}>
           <GeneralBtn
