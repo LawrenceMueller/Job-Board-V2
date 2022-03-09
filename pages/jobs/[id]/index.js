@@ -25,17 +25,16 @@ export default function JobPosting({ jobDetails }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const thisForm = document.getElementById('signup');
-
-    let form = new FormData(thisForm);
+    let form = new FormData(e.target);
     form.append('resume', resume);
     form.append('coverLetter', coverLetter);
     const formData = Object.fromEntries(form.entries());
 
+    console.log(formData);
+
     try {
       const res = await fetch('http://localhost:3000/api/applyForJob', {
         body: JSON.stringify(formData),
-        headers: { 'Content-Type': 'multipart/form-data' },
         method: 'POST',
       });
 
@@ -56,6 +55,7 @@ export default function JobPosting({ jobDetails }) {
     setFirstName('');
     setLastName('');
     setEmail('');
+    setPhone('');
     setResume();
     setCoverLetter();
   };
@@ -76,7 +76,6 @@ export default function JobPosting({ jobDetails }) {
       <form
         onSubmit={handleSubmit}
         className={jobDetailsStyles.job_details__Container}
-        id='signup'
       >
         <article className={jobDetailsStyles.job_card__card_application}>
           <div className={jobCardStyles.job_card__information}>
