@@ -6,6 +6,7 @@ import GeneralBtn from '../components/GeneralBtn';
 import PreviewJobCard from '../components/PreviewJobCard';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
+import validateEmail from '../functions/validateEmail';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -129,8 +130,11 @@ function Postjob() {
       badNotify('Missing title');
     } else if (formData.companyName === '') {
       badNotify('Missing company name');
-    } else if (formData.contactEmail === '') {
-      badNotify('Missing email for receipt');
+    } else if (
+      formData.contactEmail === '' ||
+      (formData.contactEmail !== '' && !validateEmail(formData.contactEmail))
+    ) {
+      badNotify('Missing email for receipt or the email provided is incorrect');
     } else if (formData.country === '') {
       badNotify('Missing country');
     } else if (formData.state === '' || formData.state.length < 3) {
@@ -141,17 +145,19 @@ function Postjob() {
       badNotify('Missing zip');
     } else if (formData.positionType === 'none') {
       badNotify('Missing type of position');
-    } else if (formData.emailForward === '' || formData.redirectURL === '') {
+    } else if (
+      formData.emailForward === '' ||
+      formData.redirectURL === '' ||
+      (formData.emailForward !== '' && !validateEmail(formData.emailForward))
+    ) {
       badNotify(
-        'No email to forard applicants information or no URL provided to redirect applicants'
+        'No email to forard applicants information too, or that email is incorrect. Or no URL provided to redirect applicants'
       );
-    } else if (formData.description === '') {
-      badNotify('Missing description');
+    } else if (formData.description === '' || formData.description.length < 5) {
+      badNotify('Missing description, or its too short');
     } else {
       // Need to format the salary correctly
       formData.minimumSalary = parseInt(formData.minimumSalary);
-
-      console.log(formData);
 
       try {
         const res = await fetch('../api/createJobListing', {

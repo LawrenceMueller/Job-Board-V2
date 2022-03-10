@@ -9,12 +9,19 @@ import { FaCheckCircle } from 'react-icons/fa';
 import { timeDifference } from '../../../functions/timeDifference';
 import { FaCreativeCommonsShare } from 'react-icons/fa';
 import Head from 'next/head';
+import validateEmail from '../../../functions/validateEmail';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import jobDetailsStyles from '../../../styles/jobDetails.module.css';
 import jobCardStyles from '../../../styles/JobCard.module.css';
 
 // Getting job in props from getStaticProps
 export default function JobPosting({ jobDetails }) {
+  const badNotify = (msg) => toast.error(msg);
+  const goodNotify = (msg) => toast.success(msg);
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -26,24 +33,38 @@ export default function JobPosting({ jobDetails }) {
     e.preventDefault();
 
     let form = new FormData(e.target);
-    form.append('resume', resume);
-    form.append('coverLetter', coverLetter);
     const formData = Object.fromEntries(form.entries());
 
     console.log(formData);
 
-    try {
-      const res = await fetch('http://localhost:3000/api/applyForJob', {
-        body: JSON.stringify(formData),
-        method: 'POST',
-      });
+    if (formData.candidateFirstName === '') {
+      badNotify('Missing First Name');
+    } else if (formData.candidateLastName === '') {
+      badNotify('Missing Last Name');
+    } else if (
+      formData.candidateEmail === '' ||
+      (formData.candidateEmail !== '' &&
+        !validateEmail(formData.candidateEmail))
+    ) {
+      badNotify('Missing Email or Email Provided is not valid');
+    } else if (formData.candidatePhone === '') {
+      badNotify('Missing Phone Number or Phone Number Provided is not valid');
+    } else if (!resume) {
+      badNotify('Missing Resume');
+    } else {
+      try {
+        const res = await fetch('http://localhost:3000/api/applyForJob', {
+          body: JSON.stringify(formData),
+          method: 'POST',
+        });
 
-      const result = await res.json();
-      console.log(result);
-    } catch (error) {
-      console.log('Error with sending the POST request');
-      console.log('Here is the trace');
-      console.error(error);
+        const result = await res.json();
+        console.log(result);
+      } catch (error) {
+        console.log('Error with sending the POST request');
+        console.log('Here is the trace');
+        console.error(error);
+      }
     }
   };
 
@@ -70,6 +91,7 @@ export default function JobPosting({ jobDetails }) {
 
   return (
     <>
+      <ToastContainer />
       <Head>
         <title>Console.job | {jobDetails[0].title}</title>
       </Head>
