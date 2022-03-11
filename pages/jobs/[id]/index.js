@@ -10,6 +10,7 @@ import { timeDifference } from '../../../functions/timeDifference';
 import { FaCreativeCommonsShare } from 'react-icons/fa';
 import Head from 'next/head';
 import validateEmail from '../../../functions/validateEmail';
+import axios from 'axios';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -32,30 +33,34 @@ export default function JobPosting({ jobDetails }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let form = new FormData(e.target);
-    const formData = Object.fromEntries(form.entries());
-
-    console.log(formData);
-
-    if (formData.candidateFirstName === '') {
+    if (firstName === '') {
       badNotify('Missing First Name');
-    } else if (formData.candidateLastName === '') {
+    } else if (lastName === '') {
       badNotify('Missing Last Name');
-    } else if (
-      formData.candidateEmail === '' ||
-      (formData.candidateEmail !== '' &&
-        !validateEmail(formData.candidateEmail))
-    ) {
+    } else if (email === '' || (email !== '' && !validateEmail(email))) {
       badNotify('Missing Email or Email Provided is not valid');
-    } else if (formData.candidatePhone === '') {
+    } else if (phone === '') {
       badNotify('Missing Phone Number or Phone Number Provided is not valid');
     } else if (!resume) {
       badNotify('Missing Resume');
     } else {
       try {
+        const data = {};
+
+        Array.from(e.currentTarget.elements).forEach((field) => {
+          if (!field.name) return;
+          data[field.name] = field.value;
+        });
+
+        data.position = jobDetails[0].title;
+
+        // // Append Files
+        // data.resume = resume;
+        // coverLetter ? (data.coverLetter = coverLetter) : null;
+
         const res = await fetch('http://localhost:3000/api/applyForJob', {
-          body: JSON.stringify(formData),
-          method: 'POST',
+          method: 'post',
+          body: JSON.stringify(data),
         });
 
         const result = await res.json();
@@ -79,14 +84,6 @@ export default function JobPosting({ jobDetails }) {
     setPhone('');
     setResume();
     setCoverLetter();
-  };
-
-  const resumeChangeHandler = (event) => {
-    setResume(event.target.files[0]);
-  };
-
-  const coverLetterChangeHandler = (event) => {
-    setCoverLetter(event.target.files[0]);
   };
 
   return (
@@ -227,7 +224,11 @@ export default function JobPosting({ jobDetails }) {
         <input
           type='file'
           name='candidateResume'
-          onChange={resumeChangeHandler}
+          onChange={(event) => {
+            const file = event.target.files[0];
+            setResume(file);
+          }}
+          accept='.pdf,.txt,.doc,.docx'
         />
         <label
           htmlFor='candidateCoverLetter'
@@ -238,7 +239,11 @@ export default function JobPosting({ jobDetails }) {
         <input
           type='file'
           name='candidateCoverLetter'
-          onChange={coverLetterChangeHandler}
+          onChange={(event) => {
+            const file = event.target.files[0];
+            setCoverLetter(file);
+          }}
+          accept='.pdf,.txt,.doc,.docx'
         />
         <div className={jobDetailsStyles.job_details__btn_container}>
           <GeneralBtn
@@ -292,3 +297,13 @@ export async function getStaticPaths() {
     fallback: false,
   };
 }
+
+// else if (
+//   resume.type === 'application/pdf' ||
+//   resume.type ===
+//     'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+//   resume.type === 'text/plain' ||
+//   resume.type === 'application/msword'
+// ) {
+//   badNotify('Resume must be one of these types: .pdf .txt .docx .doc');
+// }
