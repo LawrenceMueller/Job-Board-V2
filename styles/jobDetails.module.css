@@ -43,3 +43,8 @@
   border-radius: 5px;
   border: 1px solid grey;
 }
+
+/* Utility class for application screen */
+.job_details__file_disclaimer {
+  margin-top: 2em;
+}

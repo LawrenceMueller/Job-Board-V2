@@ -66,7 +66,17 @@ export default function JobPosting({ jobDetails }) {
         });
 
         const result = await res.json();
-        console.log(result);
+
+        if (result.msg === 'success') {
+          goodNotify('Applied Successfully');
+          handleClear();
+        } else if (result.msg === 'resume wrong file type') {
+          badNotify('Resume must be a PDF');
+        } else if (result.msg === 'cover letter wrong file type') {
+          badNotify('Cover Letter must be a PDF');
+        } else {
+          badNotify('Failed to apply for position');
+        }
       } catch (error) {
         console.log('Error with sending the POST request');
         console.log('Here is the trace');
@@ -86,6 +96,12 @@ export default function JobPosting({ jobDetails }) {
     setPhone('');
     setResume();
     setCoverLetter();
+
+    let resumeInput = document.getElementById('resumeInput');
+    let coverLetterInput = document.getElementById('coverLetterInput');
+
+    resumeInput.value = '';
+    coverLetterInput.value = '';
   };
 
   return (
@@ -217,6 +233,9 @@ export default function JobPosting({ jobDetails }) {
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
         />
+        <strong className={jobDetailsStyles.job_details__file_disclaimer}>
+          Files must be PDF
+        </strong>
         <label
           htmlFor='candidateResume'
           className={jobDetailsStyles.job_details__label}
@@ -224,13 +243,14 @@ export default function JobPosting({ jobDetails }) {
           Resume <span style={{ color: 'red' }}>*</span>
         </label>
         <input
+          id='resumeInput'
           type='file'
           name='candidateResume'
           onChange={(event) => {
             const file = event.target.files[0];
             setResume(file);
           }}
-          accept='.pdf,.txt,.doc,.docx'
+          accept='.pdf'
         />
         <label
           htmlFor='candidateCoverLetter'
@@ -239,13 +259,14 @@ export default function JobPosting({ jobDetails }) {
           Cover Letter
         </label>
         <input
+          id='coverLetterInput'
           type='file'
           name='candidateCoverLetter'
           onChange={(event) => {
             const file = event.target.files[0];
             setCoverLetter(file);
           }}
-          accept='.pdf,.txt,.doc,.docx'
+          accept='.pdf'
         />
         <div className={jobDetailsStyles.job_details__btn_container}>
           <GeneralBtn

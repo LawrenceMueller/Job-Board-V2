@@ -4,6 +4,7 @@ import formidable from 'formidable';
 import * as fs from 'fs';
 
 export default async function handler(req, res) {
+  // Initialize SendGrid
   mail.setApiKey(process.env.SENDGRID_API_KEY);
 
   // Initialize Redis
@@ -60,6 +61,11 @@ export default async function handler(req, res) {
   let resume;
   let coverLetter;
 
+  if (data.files.resume.mimetype !== 'application/pdf') {
+    res.status(500).json({ msg: 'resume wrong file type' });
+    return;
+  }
+
   await fs.readFile(data.files.resume.filepath, (err, tempResume) => {
     if (err) {
       console.log(err);
@@ -68,6 +74,11 @@ export default async function handler(req, res) {
   });
 
   if (data.files.coverLetter) {
+    if (data.files.coverLetter.mimetype !== 'application/pdf') {
+      res.status(500).json({ msg: 'cover letter wrong file type' });
+      return;
+    }
+
     await fs.readFile(
       data.files.coverLetter.filepath,
       (err, tempCoverLetter) => {
