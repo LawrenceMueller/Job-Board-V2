@@ -1,6 +1,7 @@
 import { Client, Entity, Schema, Repository } from 'redis-om';
 const mail = require('@sendgrid/mail');
 import formidable from 'formidable';
+import * as fs from 'fs';
 
 export default async function handler(req, res) {
   mail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -54,8 +55,29 @@ export default async function handler(req, res) {
     });
   });
 
-  console.log(data);
   const jobPageId = data.fields.positionPageId;
+
+  let resume;
+  let coverLetter;
+
+  await fs.readFile(data.files.resume.filepath, (err, tempResume) => {
+    if (err) {
+      console.log(err);
+    }
+    resume = tempResume;
+  });
+
+  if (data.files.coverLetter) {
+    await fs.readFile(
+      data.files.coverLetter.filepath,
+      (err, tempCoverLetter) => {
+        if (err) {
+          console.log(err);
+        }
+        coverLetter = tempCoverLetter;
+      }
+    );
+  }
 
   try {
     await connect(); // Connect to db
@@ -71,7 +93,7 @@ export default async function handler(req, res) {
     const emailToSendTo = jobListing[0].entityData.contactEmail;
 
     const message = `
-    New candidate that applied through Console.job!\r\n\
+    A new candidate has applied through Console.job!\r\n\
     Here is the information they provided:\r\n
     \r\n
     Name: ${data.fields.firstName} ${data.fields.lastName}\r\n
@@ -80,16 +102,56 @@ export default async function handler(req, res) {
     \r\n
     Attached to this email you will find the candidate's resume, and cover letter if they provided it.\r\n
     \r\n
-    Console.Job() is a small buisness, made by ONE person, so it means a lot that you used this service. Thank you
+    Console.Job() is a small business, made by ONE person, so it means a lot that you used this service. Thank you!
   `;
 
-    const emailData = {
-      to: emailToSendTo,
-      from: 'consolejob@consolejob.com',
-      subject: `New candidate for your ${data.fields.position} posting`,
-      text: message,
-      html: message.replace(/\r\n/g, '<br>'),
-    };
+    const resumeTextBuffered = Buffer.from(resume);
+    let emailData;
+
+    if (data.files.coverLetter) {
+      const coverLetterTextBuffered = Buffer.from(coverLetter);
+
+      emailData = {
+        to: emailToSendTo,
+        from: 'consolejob@consolejob.com',
+        subject: `New candidate for your ${data.fields.position} posting`,
+        text: message,
+        html: message.replace(/\r\n/g, '<br>'),
+        attachments: [
+          {
+            content: resumeTextBuffered.toString('base64'),
+            filename: data.files.resume.originalFilename,
+            type: 'application/pdf',
+            disposition: 'attachment',
+            content_id: 'candidateResume',
+          },
+          {
+            content: coverLetterTextBuffered.toString('base64'),
+            filename: data.files.coverLetter.originalFilename,
+            type: 'application/pdf',
+            disposition: 'attachment',
+            content_id: 'candidateCoverLetter',
+          },
+        ],
+      };
+    } else {
+      emailData = {
+        to: emailToSendTo,
+        from: 'consolejob@consolejob.com',
+        subject: `New candidate for your ${data.fields.position} posting`,
+        text: message,
+        html: message.replace(/\r\n/g, '<br>'),
+        attachments: [
+          {
+            content: resumeTextBuffered.toString('base64'),
+            filename: data.files.resume.originalFilename,
+            type: 'application/pdf',
+            disposition: 'attachment',
+            content_id: 'candidateResume',
+          },
+        ],
+      };
+    }
 
     await mail.send(emailData).then(() => {
       res.status(200).json({ msg: 'success' });
