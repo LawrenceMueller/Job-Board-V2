@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import GeneralBtn from '../../../components/GeneralBtn';
 import Link from 'next/link';
-import { FaMapMarkerAlt } from 'react-icons/fa';
-import { FaBookOpen } from 'react-icons/fa';
+import {
+  FaMapMarkerAlt,
+  FaBookOpen,
+  FaMoneyBill,
+  FaCheckCircle,
+  FaCreativeCommonsShare,
+} from 'react-icons/fa';
 import { VscRemoteExplorer } from 'react-icons/vsc';
-import { FaMoneyBill } from 'react-icons/fa';
-import { FaCheckCircle } from 'react-icons/fa';
 import { timeDifference } from '../../../functions/timeDifference';
-import { FaCreativeCommonsShare } from 'react-icons/fa';
 import Head from 'next/head';
 import validateEmail from '../../../functions/validateEmail';
-import axios from 'axios';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -45,22 +46,23 @@ export default function JobPosting({ jobDetails }) {
       badNotify('Missing Resume');
     } else {
       try {
-        const data = {};
+        const data = new FormData();
 
-        Array.from(e.currentTarget.elements).forEach((field) => {
-          if (!field.name) return;
-          data[field.name] = field.value;
-        });
+        data.append('firstName', firstName);
+        data.append('lastName', lastName);
+        data.append('email', email);
+        data.append('phone', phone);
 
-        data.position = jobDetails[0].title;
+        data.append('positionPageId', jobDetails[0].pageId);
+        data.append('position', jobDetails[0].title);
 
-        // // Append Files
-        // data.resume = resume;
-        // coverLetter ? (data.coverLetter = coverLetter) : null;
+        // Append Files
+        data.append('resume', resume);
+        coverLetter ? data.append('coverLetter', coverLetter) : null;
 
         const res = await fetch('http://localhost:3000/api/applyForJob', {
           method: 'post',
-          body: JSON.stringify(data),
+          body: data,
         });
 
         const result = await res.json();

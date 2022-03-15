@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import { FaMapMarkerAlt } from 'react-icons/fa';
-import { FaBookOpen } from 'react-icons/fa';
 import { VscRemoteExplorer } from 'react-icons/vsc';
-import { FaMoneyBill } from 'react-icons/fa';
-import { FaCheckCircle } from 'react-icons/fa';
-import { FaCreativeCommonsShare } from 'react-icons/fa';
+import {
+  FaMapMarkerAlt,
+  FaBookOpen,
+  FaMoneyBill,
+  FaCheckCircle,
+  FaCreativeCommonsShare,
+} from 'react-icons/fa';
 
 import jobCardStyles from '../styles/JobCard.module.css';
 
