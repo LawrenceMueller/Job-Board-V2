@@ -101,7 +101,7 @@ export default async function handler(req, res) {
       .equals(jobPageId)
       .return.all();
 
-    const emailToSendTo = jobListing[0].entityData.contactEmail;
+    const emailToSendTo = jobListing[0].entityData.emailForward;
 
     const message = `
     A new candidate has applied through Console.job!\r\n\
