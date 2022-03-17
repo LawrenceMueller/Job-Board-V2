@@ -146,9 +146,9 @@ function Postjob() {
     } else if (formData.positionType === 'none') {
       badNotify('Missing type of position');
     } else if (
-      formData.emailForward === '' ||
-      formData.redirectURL === '' ||
-      (formData.emailForward !== '' && !validateEmail(formData.emailForward))
+      (formData.emailForward === '' && formData.redirectURL === '') ||
+      (formData.redirectURL = '' && !validateEmail(formData.emailForward)) ||
+      (formData.redirectURL === '' && formData.emailForward === '')
     ) {
       badNotify(
         'No email to forard applicants information too, or that email is incorrect. Or no URL provided to redirect applicants'
