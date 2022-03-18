@@ -72,7 +72,7 @@ function PreviewJobCard({ individualJob }) {
           dangerouslySetInnerHTML={{ __html: individualJob.description }}
         />
         <button
-          className={jobCardStyles.job_card__btn}
+          className={jobCardStyles.job_card__btn_preview_apply}
           onClick={(e) => {
             /* 
           This next line is too prevent event bubbling which took me quite a while

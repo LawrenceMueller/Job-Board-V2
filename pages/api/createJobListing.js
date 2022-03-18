@@ -1,8 +1,12 @@
 import { Client, Entity, Schema, Repository } from 'redis-om';
+const mail = require('@sendgrid/mail');
 import fetch from 'node-fetch';
 import { v4 } from 'uuid';
 
 export default async function handler(req, res) {
+  // Initialize SendGrid
+  mail.setApiKey(process.env.SENDGRID_API_KEY);
+
   // Initialize Redis
   const client = new Client();
 
@@ -37,6 +41,7 @@ export default async function handler(req, res) {
       companyWebsite: { type: 'string' },
       description: { type: 'string', textSearch: true },
       postedTime: { type: 'string' },
+      applied: { type: 'number' },
     },
     {
       dataStructure: 'JSON',
@@ -77,21 +82,52 @@ export default async function handler(req, res) {
     // Get the current date in order to provide information to users
     userInputedData.postedTime = new Date().toString();
 
-    console.log(userInputedData);
+    // Initialize amount of people applied to 0
+    userInputedData.applied = 0;
 
     await connect(); // Connect to db
 
     const repository = new Repository(schema, client); // Create the repository instance
 
-    console.log(userInputedData);
-
     const jobListing = repository.createEntity(userInputedData); // Create a new jobListing using the data from the front end
 
-    // TODO: Process Payment
+    await repository.save(jobListing); // Save new entry to db
 
-    await repository.save(jobListing); // Get the id of the newly saved db entry
+    // Set to the email of the applicant to send a confirmation email
+    const emailToSendTo = userInputedData.contactEmail;
 
-    res.status(200).json({ msg: 'success' });
+    // Create the body of the email
+    let message = `
+        Thank you for creating the ${userInputedData.title} position listing with Console.job()\r\n
+        \r\n
+        The following code is your unique removal-id for the position you posted.
+        DO NOT SHARE THIS CODE OR LOSE IT. If you fill the position before the 60
+        days are up, please use this code to remove the job listing from Console.job()
+        by going to the home page and clicking the "Remove Listing" button, then paste
+        this code into the field provided and press "remove".
+        \r\n
+        \r\n
+        removal id: <b style="font-size:1.5rem;">${userInputedData.removalId}</b>
+        \r\n
+        \r\n
+        Thank you for using Console.Job(). This is a small business, made by ONE person, 
+        so it means a lot that you used this service. Every time a buisness uses this service
+        you are helping a developer pay bills. Thank you!
+      `;
+
+    // Email to the candidate for confirmation
+    let emailData = {
+      to: emailToSendTo,
+      from: 'consolejob@consolejob.com',
+      subject: `You created a job listing for a ${userInputedData.title} position, Thank you!`,
+      text: message,
+      html: message.replace(/\r\n/g, '<br>'),
+    };
+
+    // Send the email to the applicant
+    await mail.send(emailData).then(() => {
+      res.status(200).json({ msg: 'success' });
+    });
   } catch (error) {
     console.log('Error with the creating job listing function');
     console.log('Here is the trace');

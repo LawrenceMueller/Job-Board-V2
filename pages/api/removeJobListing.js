@@ -35,6 +35,7 @@ export default async function handler(req, res) {
       companyWebsite: { type: 'string' },
       description: { type: 'string', textSearch: true },
       postedTime: { type: 'string' },
+      applied: { type: 'number' },
     },
     {
       dataStructure: 'JSON',

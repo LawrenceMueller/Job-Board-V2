@@ -41,6 +41,7 @@ export default async function handler(req, res) {
       companyWebsite: { type: 'string' },
       description: { type: 'string', textSearch: true },
       postedTime: { type: 'string' },
+      applied: { type: 'number' },
     },
     {
       dataStructure: 'JSON',
@@ -101,9 +102,11 @@ export default async function handler(req, res) {
       .equals(jobPageId)
       .return.all();
 
-    const emailToSendTo = jobListing[0].entityData.emailForward;
+    // Get the email address of the client to send the applicants information to
+    let emailToSendTo = jobListing[0].entityData.emailForward;
 
-    const message = `
+    // Create the body of the email
+    let message = `
     A new candidate has applied through Console.job!\r\n\
     Here is the information they provided:\r\n
     \r\n
@@ -116,12 +119,14 @@ export default async function handler(req, res) {
     Console.Job() is a small business, made by ONE person, so it means a lot that you used this service. Thank you!
   `;
 
+    // Get the resume and cover letter if need be
     const resumeTextBuffered = Buffer.from(resume);
     let emailData;
 
     if (data.files.coverLetter) {
       const coverLetterTextBuffered = Buffer.from(coverLetter);
 
+      // Email with both resume and cover letter
       emailData = {
         to: emailToSendTo,
         from: 'consolejob@consolejob.com',
@@ -146,6 +151,7 @@ export default async function handler(req, res) {
         ],
       };
     } else {
+      // Email for a candidate that just provided the resume
       emailData = {
         to: emailToSendTo,
         from: 'consolejob@consolejob.com',
@@ -164,6 +170,37 @@ export default async function handler(req, res) {
       };
     }
 
+    // Send the email to the client
+    await mail.send(emailData);
+
+    // Update the job applied for by adding one to its applied count
+    jobListing[0].applied = jobListing[0].applied + 1;
+    await repository.save(jobListing[0]);
+
+    // Set to the email of the applicant to send a confirmation email
+    emailToSendTo = jobListing[0].entityData.emailForward;
+
+    // Create the body of the email
+    message = `
+    Thank you for applying for the ${jobListing[0].title} position with ${jobListing[0].companyName}\r\n\
+    This email is just a confirmation for your records.\r\n
+    \r\n
+    \r\n
+    Thank you for using Console.Job(). This is a small business, made by ONE person, 
+    so it means a lot that you used this service. Every time an applicant applies it gives 
+    companies more faith in our service. Thank you!
+  `;
+
+    // Email to the candidate for confirmation
+    emailData = {
+      to: emailToSendTo,
+      from: 'consolejob@consolejob.com',
+      subject: `You applied for the ${jobListing[0].title} position with ${jobListing[0].companyName}`,
+      text: message,
+      html: message.replace(/\r\n/g, '<br>'),
+    };
+
+    // Send the email to the applicant
     await mail.send(emailData).then(() => {
       res.status(200).json({ msg: 'success' });
     });
