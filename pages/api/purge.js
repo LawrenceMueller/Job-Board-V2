@@ -1,6 +1,7 @@
 import { timeDifference } from '../../functions/timeDifference';
 
 export default async function handler(req, res) {
+  console.log('here');
   // Initialize Redis
   const client = new Client();
 

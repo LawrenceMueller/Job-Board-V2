@@ -1,7 +1,7 @@
 name: Daily CRON job to get rid of posts which are older than 60 days
 on:
   schedule:
-    - cron: '0 * * * *'
+    - cron: '* * * * *'
 jobs:
   cron:
     runs-on: ubuntu-latest
