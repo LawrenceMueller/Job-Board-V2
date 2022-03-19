@@ -1,7 +1,7 @@
+import { Client, Entity, Schema, Repository } from 'redis-om';
 import { timeDifference } from '../../functions/timeDifference';
 
 export default async function handler(req, res) {
-  console.log('here');
   // Initialize Redis
   const client = new Client();
 
@@ -48,18 +48,25 @@ export default async function handler(req, res) {
 
     const repository = new Repository(schema, client); // Create the repository instance
 
-    let oldListings = await repository
-      .search()
-      .where(timeDifference(postedTime))
-      .is.greaterThan(60)
-      .return.all();
+    let oldListings = await repository.search().return.all();
 
-    console.log(oldListings);
+    oldListings.forEach((listing) => {
+      let numberOfDaysOld = timeDifference(listing.postedTime);
+      numberOfDaysOld = numberOfDaysOld.substring(
+        0,
+        numberOfDaysOld.length - 9
+      );
+
+      if (numberOfDaysOld > 60) {
+        repository.remove(listing.entityId);
+      }
+    });
   } catch (error) {
     console.log('Error in the cron job function to remove old listings');
     console.log('Here is the trace');
     console.error(error);
     res.status(500).json({ msg: 'Failed to delete old jobs' });
   }
+
   res.status(200).send('ok');
 }
