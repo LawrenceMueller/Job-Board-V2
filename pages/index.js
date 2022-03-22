@@ -55,7 +55,7 @@ export default function Home({ data }) {
   }
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   try {
     const devOrProd =
       process.env.NODE_ENV === 'development'
