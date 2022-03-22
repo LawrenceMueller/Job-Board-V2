@@ -65,10 +65,13 @@ export default function JobPosting({ jobDetails }) {
             ? `http://localhost:3000/api/applyForJob`
             : `https://www.consolejob/api/applyForJob`;
 
-        const res = await fetch(devOrProd, {
-          method: 'post',
-          body: data,
-        });
+        const res = await fetch(
+          'https://www.job-board-seven.vercel.app/api/applyForJob',
+          {
+            method: 'post',
+            body: data,
+          }
+        );
 
         const result = await res.json();
 
@@ -302,7 +305,9 @@ export async function getStaticProps(context) {
       ? `http://localhost:3000/api/searchJobListings`
       : `https://www.consolejob/api/searchJobListings`;
 
-  const res = await fetch(devOrProd);
+  const res = await fetch(
+    'https://www.job-board-seven.vercel.app/searchJobListings'
+  );
   let data = await res.json();
   data = data = Object.entries(data)[0][1];
 
@@ -321,7 +326,9 @@ export async function getStaticPaths() {
       ? `http://localhost:3000/api/searchJobListings`
       : `https://www.consolejob/api/searchJobListings`;
 
-  const res = await fetch(devOrProd);
+  const res = await fetch(
+    'https://www.job-board-seven.vercel.app/api/searchJobListings'
+  );
 
   let data = await res.json();
   data = data = Object.entries(data)[0][1];

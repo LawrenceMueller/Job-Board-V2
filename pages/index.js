@@ -62,7 +62,9 @@ export async function getStaticProps() {
         ? `http://localhost:3000/api/searchJobListings`
         : `https://www.consolejob/api/searchJobListings`;
 
-    const res = await fetch(devOrProd);
+    const res = await fetch(
+      'https://www.job-board-seven.vercel.app/api/searchJobListings'
+    );
     let data = await res.json();
 
     // Need to take the response and format it for mapping over
