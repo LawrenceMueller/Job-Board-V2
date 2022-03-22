@@ -60,7 +60,12 @@ export default function JobPosting({ jobDetails }) {
         data.append('resume', resume);
         coverLetter ? data.append('coverLetter', coverLetter) : null;
 
-        const res = await fetch('http://localhost:3000/api/applyForJob', {
+        const devOrProd =
+          process.env.NODE_ENV === 'development'
+            ? `http://localhost:3000/api/applyForJob`
+            : `https://www.consolejob/api/applyForJob`;
+
+        const res = await fetch(devOrProd, {
           method: 'post',
           body: data,
         });
@@ -292,7 +297,12 @@ export async function getStaticProps(context) {
   const { params } = context;
   const jobId = params.id;
 
-  const res = await fetch('http://localhost:3000/api/searchJobListings');
+  const devOrProd =
+    process.env.NODE_ENV === 'development'
+      ? `http://localhost:3000/api/searchJobListings`
+      : `https://www.consolejob/api/searchJobListings`;
+
+  const res = await fetch(devOrProd);
   let data = await res.json();
   data = data = Object.entries(data)[0][1];
 
@@ -306,7 +316,12 @@ export async function getStaticProps(context) {
 }
 
 export async function getStaticPaths() {
-  const res = await fetch('http://localhost:3000/api/searchJobListings');
+  const devOrProd =
+    process.env.NODE_ENV === 'development'
+      ? `http://localhost:3000/api/searchJobListings`
+      : `https://www.consolejob/api/searchJobListings`;
+
+  const res = await fetch(devOrProd);
 
   let data = await res.json();
   data = data = Object.entries(data)[0][1];

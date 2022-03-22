@@ -57,7 +57,12 @@ export default function Home({ data }) {
 
 export async function getStaticProps() {
   try {
-    const res = await fetch('http://localhost:3000/api/searchJobListings');
+    const devOrProd =
+      process.env.NODE_ENV === 'development'
+        ? `http://localhost:3000/api/searchJobListings`
+        : `https://www.consolejob/api/searchJobListings`;
+
+    const res = await fetch(devOrProd);
     let data = await res.json();
 
     // Need to take the response and format it for mapping over

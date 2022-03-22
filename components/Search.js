@@ -65,7 +65,12 @@ function Search({ handleJobSearch }) {
       badNotify('Address entered is too short');
     } else {
       try {
-        const res = await fetch('http://localhost:3000/api/searchJobListings', {
+        const devOrProd =
+          process.env.NODE_ENV === 'development'
+            ? `http://localhost:3000/api/searchJobListings`
+            : `https://www.consolejob/api/searchJobListings`;
+
+        const res = await fetch(devOrProd, {
           body: JSON.stringify(formData),
           headers: {
             'Content-Type': 'application/json',

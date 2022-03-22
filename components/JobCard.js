@@ -92,7 +92,11 @@ function JobCard({ individualJob }) {
           <LinkBtn
             name={'Apply'}
             width={'80%'}
-            link={`http://localhost:3000/jobs/${individualJob.pageId}`}
+            link={
+              process.env.NODE_ENV === 'development'
+                ? `http://localhost:3000/jobs/${individualJob.pageId}`
+                : `https://www.consolejob/jobs/${individualJob.pageId}`
+            }
             newTab={false}
           />
         ) : (
