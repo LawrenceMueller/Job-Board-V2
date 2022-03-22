@@ -68,8 +68,6 @@ export default async function handler(req, res) {
         req.body.lng = text.results[0].geometry.location.lng;
       });
 
-    let errorFlag = false; // This flag is set to true if something went wrong and the job listing will not be made correctly
-
     // Create a unique removal id to allow users to remove listing later on
     userInputedData.removalId = randomString(
       32,
@@ -93,7 +91,7 @@ export default async function handler(req, res) {
 
     await repository.save(jobListing); // Save new entry to db
 
-    // Set to the email of the applicant to send a confirmation email
+    // Set to the email of the company posting, to send a confirmation email
     const emailToSendTo = userInputedData.contactEmail;
 
     // Create the body of the email
@@ -115,7 +113,7 @@ export default async function handler(req, res) {
         you are helping a developer pay bills. Thank you!
       `;
 
-    // Email to the candidate for confirmation
+    // Email to the company for confirmation
     let emailData = {
       to: emailToSendTo,
       from: 'consolejob@consolejob.com',

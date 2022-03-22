@@ -173,10 +173,10 @@ function Postjob() {
         if (result.msg === 'success') {
           goodNotify('Posted successful! Redirecting soon');
           setTimeout(() => {
-            router.push('/#top');
-          }, 2000);
+            router.push('/api/checkout');
+          });
         } else {
-          badNotify('Problem with posting the job listing');
+          badNotify('Problem with creating the job listing');
         }
       } catch (error) {
         console.log('Error with sending the POST request');
@@ -206,7 +206,7 @@ function Postjob() {
       <form onSubmit={handleSubmit}>
         <ToastContainer />
         <div className={postJobStyles.post_job_screen__Container}>
-          <h2>Post a job for 60 days! Only X$</h2>
+          <h2>Post a job for 60 days! Only 75$</h2>
           <label
             htmlFor='title'
             className={postJobStyles.post_job_screen__label}
