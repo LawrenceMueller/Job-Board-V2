@@ -2,16 +2,18 @@ import { useState, useEffect } from 'react';
 import JobCard from '../components/JobCard';
 import Search from '../components/Search';
 import Head from 'next/head';
+import { Client, Entity, Schema, Repository } from 'redis-om';
+import { timeDifference } from '../functions/timeDifference';
 
 import indexStyles from '../styles/Index.module.css';
 
-export default function Home({ data }) {
+export default function Home({ sortedResults }) {
   const [jobs, setJobs] = useState([]);
   const [searchedJobs, setSearchedJobs] = useState(null);
 
   useEffect(() => {
-    setJobs(data);
-  }, [jobs, data]);
+    setJobs(sortedResults);
+  }, [jobs, sortedResults]);
 
   const handleJobSearch = (jobsReturned) => {
     setSearchedJobs(jobsReturned);
@@ -55,34 +57,97 @@ export default function Home({ data }) {
   }
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   try {
-    const devOrProd =
-      process.env.NODE_ENV === 'development'
-        ? `http://localhost:3000/api/searchJobListings`
-        : `https://www.consolejob/api/searchJobListings`;
+    const client = new Client();
 
-    const res = await fetch(
-      'https://www.job-board-seven.vercel.app/api/searchJobListings'
+    async function connect() {
+      if (!client.isOpen()) {
+        await client.open(process.env.REDIS_URL);
+      }
+    }
+
+    // Schema for job listings
+    class JobListing extends Entity {}
+    let schema = new Schema(
+      JobListing,
+      {
+        pageId: { type: 'string' },
+        removalId: { type: 'string' },
+        title: { type: 'string', textSearch: true },
+        companyName: { type: 'string' },
+        contactEmail: { type: 'string' },
+        country: { type: 'string' },
+        state: { type: 'string' },
+        city: { type: 'string' },
+        zip: { type: 'string' },
+        lat: { type: 'number' },
+        lng: { type: 'number' },
+        experience: { type: 'string' },
+        telecommute: { type: 'string' },
+        positionType: { type: 'string' },
+        salaryType: { type: 'string' },
+        minimumSalary: { type: 'number' },
+        emailForward: { type: 'string' },
+        redirectURL: { type: 'string' },
+        companyWebsite: { type: 'string' },
+        description: { type: 'string', textSearch: true },
+        postedTime: { type: 'string' },
+        applied: { type: 'number' },
+      },
+      {
+        dataStructure: 'JSON',
+      }
     );
-    let data = await res.json();
 
-    // Need to take the response and format it for mapping over
-    data = Object.entries(data)[0][1];
+    await connect();
 
-    if (!data) {
+    const repository = new Repository(schema, client);
+
+    let jobs = await repository.search().return.all();
+
+    jobs.forEach((job) => {
+      job.entityData.removalId = 'Not Authorized';
+      job.entityData.contactEmail = 'Not Authorized';
+    });
+
+    let sortedResults = [];
+
+    jobs.forEach((job) => {
+      sortedResults.push(job.entityData);
+    });
+
+    sortedResults.sort(sortByData);
+
+    // Util function that sorts job listings by data
+    function sortByData(a, b) {
+      let jobA = timeDifference(a.postedTime);
+      let jobB = timeDifference(b.postedTime);
+
+      jobA = jobA.substring(0, jobA.length - 9);
+
+      jobB = jobB.substring(0, jobB.length - 9);
+
+      let comparison = 0;
+      if (jobA > jobB) {
+        comparison = 1;
+      } else if (jobA < jobB) {
+        comparison = -1;
+      }
+      return comparison;
+    }
+
+    if (!sortedResults) {
       return {
         notFound: true,
       };
     }
 
     return {
-      props: { data }, // will be passed to the page component as props
+      props: { sortedResults }, // will be passed to the page component as props
     };
   } catch (error) {
-    console.log(
-      'error thrown in the getStaticProps function in the index.js file'
-    );
+    console.log('error thrown in the getStaticProps function of home page');
     console.log('here is the trace');
     console.error(error);
   }
