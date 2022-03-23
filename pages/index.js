@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import JobCard from '../components/JobCard';
 import Search from '../components/Search';
 import Head from 'next/head';
-import { Client, Entity, Schema, Repository } from 'redis-om';
 import { timeDifference } from '../functions/timeDifference';
 
 import indexStyles from '../styles/Index.module.css';
+
+import { Client, Entity, Schema, Repository } from 'redis-om';
 
 export default function Home({ sortedResults }) {
   const [jobs, setJobs] = useState([]);

@@ -19,6 +19,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import jobDetailsStyles from '../../../styles/jobDetails.module.css';
 import jobCardStyles from '../../../styles/JobCard.module.css';
 
+import { Client, Entity, Schema, Repository } from 'redis-om';
+
 // Getting job in props from getStaticProps
 export default function JobPosting({ jobDetails }) {
   const badNotify = (msg) => toast.error(msg);
@@ -53,8 +55,8 @@ export default function JobPosting({ jobDetails }) {
         data.append('email', email);
         data.append('phone', phone);
 
-        data.append('positionPageId', jobDetails[0].pageId);
-        data.append('position', jobDetails[0].title);
+        data.append('positionPageId', jobDetails.pageId);
+        data.append('position', jobDetails.title);
 
         // Append Files
         data.append('resume', resume);
@@ -65,13 +67,11 @@ export default function JobPosting({ jobDetails }) {
             ? `http://localhost:3000/api/applyForJob`
             : `https://www.consolejob/api/applyForJob`;
 
-        const res = await fetch(
-          'https://www.job-board-seven.vercel.app/api/applyForJob',
-          {
-            method: 'post',
-            body: data,
-          }
-        );
+        //'https://www.job-board-seven.vercel.app/api/applyForJob'
+        const res = await fetch(devOrProd, {
+          method: 'post',
+          body: data,
+        });
 
         const result = await res.json();
 
@@ -116,7 +116,7 @@ export default function JobPosting({ jobDetails }) {
     <>
       <ToastContainer />
       <Head>
-        <title>Console.job | {jobDetails[0].title}</title>
+        <title>Console.job | {jobDetails.title}</title>
       </Head>
       <form
         onSubmit={handleSubmit}
@@ -126,42 +126,41 @@ export default function JobPosting({ jobDetails }) {
           <div className={jobCardStyles.job_card__information}>
             <div className={jobCardStyles.job_card__at_a_glance}>
               <p className={jobCardStyles.job_card__company}>
-                {jobDetails[0].companyName}
+                {jobDetails.companyName}
               </p>
               <h3 className={jobCardStyles.job_card__title}>
-                {jobDetails[0].title}
+                {jobDetails.title}
               </h3>
               <p className={jobCardStyles.job_card__mb_15_px}>
-                Posted:&nbsp;{timeDifference(jobDetails[0].postedTime)}
+                Posted:&nbsp;{timeDifference(jobDetails.postedTime)}
               </p>
               <p className={jobCardStyles.job_card__mb_15_px}>
-                <FaMapMarkerAlt /> {jobDetails[0].state}
-                {', '} {jobDetails[0].city}
+                <FaMapMarkerAlt /> {jobDetails.state}
+                {', '} {jobDetails.city}
               </p>
             </div>
             <div className={jobCardStyles.job_card__details}>
               <div>
                 <p className={jobCardStyles.job_card__type}>
                   <FaCreativeCommonsShare />
-                  &nbsp;{jobDetails[0].positionType}
+                  &nbsp;{jobDetails.positionType}
                 </p>
                 <p className={jobCardStyles.job_card__salary}>
                   <FaMoneyBill />
-                  &nbsp;${jobDetails[0].minimumSalary}/
-                  {jobDetails[0].salaryType}
+                  &nbsp;${jobDetails.minimumSalary}/{jobDetails.salaryType}
                 </p>
               </div>
               <div>
                 <p className={jobCardStyles.job_card__experience}>
                   <FaBookOpen />{' '}
-                  {jobDetails[0].experience === 'none'
+                  {jobDetails.experience === 'none'
                     ? 'NP'
-                    : jobDetails[0].experience}
+                    : jobDetails.experience}
                 </p>
                 <p className={jobCardStyles.job_card__remote}>
                   <VscRemoteExplorer />
-                  &nbsp;{jobDetails[0].telecommute}&nbsp;
-                  {jobDetails[0].telecommute === 'remote' ? (
+                  &nbsp;{jobDetails.telecommute}&nbsp;
+                  {jobDetails.telecommute === 'remote' ? (
                     <FaCheckCircle />
                   ) : null}
                 </p>
@@ -174,14 +173,14 @@ export default function JobPosting({ jobDetails }) {
                 Website:
               </strong>{' '}
               <span>
-                {jobDetails[0].companyWebsite === ''
+                {jobDetails.companyWebsite === ''
                   ? 'NP'
-                  : jobDetails[0].companyWebsite}
+                  : jobDetails.companyWebsite}
               </span>
             </p>
             <div
               className={jobCardStyles.job_card__description}
-              dangerouslySetInnerHTML={{ __html: jobDetails[0].description }}
+              dangerouslySetInnerHTML={{ __html: jobDetails.description }}
             />
           </div>
         </article>
@@ -300,18 +299,66 @@ export async function getStaticProps(context) {
   const { params } = context;
   const jobId = params.id;
 
-  const devOrProd =
-    process.env.NODE_ENV === 'development'
-      ? `http://localhost:3000/api/searchJobListings`
-      : `https://www.consolejob/api/searchJobListings`;
+  try {
+    const client = new Client();
 
-  const res = await fetch(
-    'https://www.job-board-seven.vercel.app/searchJobListings'
-  );
-  let data = await res.json();
-  data = data = Object.entries(data)[0][1];
+    async function connect() {
+      if (!client.isOpen()) {
+        await client.open(process.env.REDIS_URL);
+      }
+    }
 
-  const job = data.filter((jobListing) => jobListing.pageId === jobId);
+    // Schema for job listings
+    class JobListing extends Entity {}
+    let schema = new Schema(
+      JobListing,
+      {
+        pageId: { type: 'string' },
+        removalId: { type: 'string' },
+        title: { type: 'string', textSearch: true },
+        companyName: { type: 'string' },
+        contactEmail: { type: 'string' },
+        country: { type: 'string' },
+        state: { type: 'string' },
+        city: { type: 'string' },
+        zip: { type: 'string' },
+        lat: { type: 'number' },
+        lng: { type: 'number' },
+        experience: { type: 'string' },
+        telecommute: { type: 'string' },
+        positionType: { type: 'string' },
+        salaryType: { type: 'string' },
+        minimumSalary: { type: 'number' },
+        emailForward: { type: 'string' },
+        redirectURL: { type: 'string' },
+        companyWebsite: { type: 'string' },
+        description: { type: 'string', textSearch: true },
+        postedTime: { type: 'string' },
+        applied: { type: 'number' },
+      },
+      {
+        dataStructure: 'JSON',
+      }
+    );
+
+    await connect();
+
+    const repository = new Repository(schema, client);
+
+    let job = await repository
+      .search()
+      .where('pageId')
+      .eq(jobId)
+      .return.first();
+
+    job = job.entityData;
+  } catch (error) {
+    console.log(
+      'error thrown in the getStaticProps function of job details page'
+    );
+    console.log('here is the trace');
+    console.error(error);
+  }
 
   return {
     props: {
@@ -326,9 +373,8 @@ export async function getStaticPaths() {
       ? `http://localhost:3000/api/searchJobListings`
       : `https://www.consolejob/api/searchJobListings`;
 
-  const res = await fetch(
-    'https://www.job-board-seven.vercel.app/api/searchJobListings'
-  );
+  //'https://www.job-board-seven.vercel.app/api/searchJobListings'
+  const res = await fetch(devOrProd);
 
   let data = await res.json();
   data = data = Object.entries(data)[0][1];
@@ -342,13 +388,3 @@ export async function getStaticPaths() {
     fallback: false,
   };
 }
-
-// else if (
-//   resume.type === 'application/pdf' ||
-//   resume.type ===
-//     'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
-//   resume.type === 'text/plain' ||
-//   resume.type === 'application/msword'
-// ) {
-//   badNotify('Resume must be one of these types: .pdf .txt .docx .doc');
-// }
