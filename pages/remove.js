@@ -27,8 +27,10 @@ function Remove() {
     const form = new FormData(e.target);
     const formData = Object.fromEntries(form.entries());
 
+    const vURL =
+      'https://www.' + process.env.VERCEL_URL + '/api/removeJobListing';
     try {
-      const res = await fetch('../api/removeJobListing', {
+      const res = await fetch(vURL, {
         body: JSON.stringify(formData),
         headers: {
           'Content-Type': 'application/json',
