@@ -69,7 +69,7 @@ export default function JobPosting({ jobDetails }) {
 
         //'https://www.job-board-seven.vercel.app/api/applyForJob'
         const res = await fetch(
-          'https://www.job-board-seven.vercel.app/api/applyForJob',
+          'http://www.job-board-seven.vercel.app/api/applyForJob',
           {
             method: 'post',
             body: data,
@@ -378,7 +378,7 @@ export async function getStaticPaths() {
 
   //'https://www.job-board-seven.vercel.app/api/searchJobListings'
   const res = await fetch(
-    'https://www.job-board-seven.vercel.app/api/searchJobListings'
+    'http://www.job-board-seven.vercel.app/api/searchJobListings'
   );
 
   let data = await res.json();

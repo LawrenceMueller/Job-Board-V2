@@ -72,7 +72,7 @@ function Search({ handleJobSearch }) {
 
         //'https://www.job-board-seven.vercel.app/api/searchJobListings'
         const res = await fetch(
-          'https://www.job-board-seven.vercel.app/api/searchJobListings',
+          'http://www.job-board-seven.vercel.app/api/searchJobListings',
           {
             body: JSON.stringify(formData),
             headers: {
