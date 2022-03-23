@@ -70,17 +70,14 @@ function Search({ handleJobSearch }) {
             ? `http://localhost:3000/api/searchJobListings`
             : `https://www.consolejob/api/searchJobListings`;
 
-        //'https://www.job-board-seven.vercel.app/api/searchJobListings'
-        const res = await fetch(
-          'http://www.job-board-2lug8kos5-amalazing.vercel.app/api/searchJobListings',
-          {
-            body: JSON.stringify(formData),
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            method: 'POST',
-          }
-        );
+        const vURL = process.env.VERCEL_URL + '/api/searchJobListings';
+        const res = await fetch(vURL, {
+          body: JSON.stringify(formData),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          method: 'POST',
+        });
 
         const result = await res.json();
         handleJobSearch(Object.entries(result)[0][1]);

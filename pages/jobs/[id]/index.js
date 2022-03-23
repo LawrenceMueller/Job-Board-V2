@@ -68,13 +68,11 @@ export default function JobPosting({ jobDetails }) {
             : `https://www.consolejob/api/applyForJob`;
 
         //'https://www.job-board-seven.vercel.app/api/applyForJob'
-        const res = await fetch(
-          'http://www.job-board-2lug8kos5-amalazing.vercel.app/api/applyForJob',
-          {
-            method: 'post',
-            body: data,
-          }
-        );
+        const vURL = process.env.VERCEL_URL + '/api/applyForJob';
+        const res = await fetch(vURL, {
+          method: 'post',
+          body: data,
+        });
 
         const result = await res.json();
 
@@ -377,9 +375,8 @@ export async function getStaticPaths() {
       : `https://www.consolejob/api/searchJobListings`;
 
   //'https://www.job-board-seven.vercel.app/api/searchJobListings'
-  const res = await fetch(
-    'http://www.job-board-2lug8kos5-amalazing.vercel.app/api/searchJobListings'
-  );
+  const vURL = process.env.VERCEL_URL + '/api/searchJobListings';
+  const res = await fetch(vURL);
 
   let data = await res.json();
   data = data = Object.entries(data)[0][1];
