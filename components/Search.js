@@ -70,8 +70,7 @@ function Search({ handleJobSearch }) {
             ? `http://localhost:3000/api/searchJobListings`
             : `https://www.consolejob/api/searchJobListings`;
 
-        const vURL =
-          'http://www.' + process.env.VERCEL_URL + '/api/searchJobListings';
+        const vURL = process.env.VERCEL_URL + '/api/searchJobListings';
         const res = await fetch(vURL, {
           body: JSON.stringify(formData),
           headers: {
