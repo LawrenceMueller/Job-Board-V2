@@ -71,7 +71,7 @@ function Search({ handleJobSearch }) {
             : `https://www.consolejob/api/searchJobListings`;
 
         const vURL =
-          'https://www.' + process.env.VERCEL_URL + '/api/searchJobListings';
+          'http://www.' + process.env.VERCEL_URL + '/api/searchJobListings';
         const res = await fetch(vURL, {
           body: JSON.stringify(formData),
           headers: {

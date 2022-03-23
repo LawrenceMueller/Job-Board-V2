@@ -160,7 +160,7 @@ function Postjob() {
       formData.minimumSalary = parseInt(formData.minimumSalary);
 
       const vURL =
-        'https://www.' + process.env.VERCEL_URL + '/api/createJobListing';
+        'http://www.' + process.env.VERCEL_URL + '/api/createJobListing';
       try {
         const res = await fetch(vURL, {
           body: JSON.stringify(formData),
