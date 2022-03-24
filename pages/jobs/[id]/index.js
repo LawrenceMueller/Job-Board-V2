@@ -62,11 +62,6 @@ export default function JobPosting({ jobDetails }) {
         data.append('resume', resume);
         coverLetter ? data.append('coverLetter', coverLetter) : null;
 
-        console.log('stuff');
-        console.log(data);
-        console.log('--------------');
-        console.log(grecaptcha.getResponse());
-
         const devOrProd =
           process.env.NODE_ENV === 'development'
             ? `http://localhost:3000/api/applyForJob`
