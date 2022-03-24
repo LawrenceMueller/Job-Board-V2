@@ -51,7 +51,7 @@ function Checkout() {
           >
             Privacy Policy
           </a>{' '}
-          and that all payment transactions will be handled through{' '}
+          , that all payment transactions will be handled through{' '}
           <span>
             <a
               target='_blank'
