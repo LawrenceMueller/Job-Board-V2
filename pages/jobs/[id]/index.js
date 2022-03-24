@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import GeneralBtn from '../../../components/GeneralBtn';
 import Link from 'next/link';
-import ReCAPTCHA from 'react-google-recaptcha';
 import {
   FaMapMarkerAlt,
   FaBookOpen,
