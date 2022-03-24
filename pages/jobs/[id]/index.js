@@ -64,7 +64,7 @@ export default function JobPosting({ jobDetails }) {
         data.append('positionPageId', jobDetails.pageId);
         data.append('position', jobDetails.title);
 
-        data.append('g-recaptcha-response', grecaptcha.getResponse());
+        data.append('recaptchaResponse', grecaptcha.getResponse());
 
         // Append Files
         data.append('resume', resume);

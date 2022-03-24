@@ -6,7 +6,7 @@ import * as fs from 'fs';
 export default async function handler(req, res) {
   console.log(req.body);
   if (req.method === 'POST') {
-    if (!(await validateCaptcha(req.body['g-recaptcha-response']))) {
+    if (!(await validateCaptcha(req.body.recaptchaResponse))) {
       return res.redirect(`/captcha`);
     }
     delete req.body['g-recaptcha-response'];
