@@ -7,6 +7,7 @@ import PreviewJobCard from '../components/PreviewJobCard';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import validateEmail from '../functions/validateEmail';
+import validateURL from '../functions/validateURL';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -145,13 +146,20 @@ function Postjob() {
       badNotify('Missing zip');
     } else if (formData.positionType === 'none') {
       badNotify('Missing type of position');
+    } else if (formData.emailForward === '' && formData.redirectURL === '') {
+      badNotify(
+        'No way to get candidates information to you. Either provide an email address or redirect link.'
+      );
+    } else if (formData.emailForward && !validateEmail(formData.emailForward)) {
+      badNotify('Email to forward applicants information too, not valid');
+    } else if (formData.redirectURL && !validateURL(formData.redirectURL)) {
+      badNotify('URL to redirect candidates not valid');
     } else if (
-      (formData.emailForward === '' && formData.redirectURL === '') ||
-      (formData.redirectURL = '' && !validateEmail(formData.emailForward)) ||
-      (formData.redirectURL === '' && formData.emailForward === '')
+      formData.companyWebsite !== '' &&
+      !validateURL(formData.companyWebsite)
     ) {
       badNotify(
-        'No email to forard applicants information too, or that email is incorrect. Or no URL provided to redirect applicants'
+        'Company website must be in this format: https://www.example.com'
       );
     } else if (formData.description === '' || formData.description.length < 5) {
       badNotify('Missing description, or its too short');
@@ -159,10 +167,15 @@ function Postjob() {
       // Need to format the salary correctly
       formData.minimumSalary = parseInt(formData.minimumSalary);
 
+      const devOrProd =
+        process.env.NODE_ENV === 'development'
+          ? `http://localhost:3000/api/createJobListing`
+          : `https://www.consolejob/api/createJobListing`;
+
       const vURL =
         'http://www.' + process.env.VERCEL_URL + '/api/createJobListing';
       try {
-        const res = await fetch(vURL, {
+        const res = await fetch(devOrProd, {
           body: JSON.stringify(formData),
           headers: {
             'Content-Type': 'application/json',
@@ -173,15 +186,12 @@ function Postjob() {
         const result = await res.json();
 
         if (result.msg === 'success') {
-          goodNotify('Posted successful! Redirecting soon');
-          setTimeout(() => {
-            router.push('/api/checkout');
-          });
+          router.push('/checkout');
         } else {
           badNotify('Problem with creating the job listing');
         }
       } catch (error) {
-        console.log('Error with sending the POST request');
+        console.log('Error with sending the POST request from post a job page');
         console.log('Here is the trace');
         console.error(error);
       }

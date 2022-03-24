@@ -72,7 +72,7 @@ function Search({ handleJobSearch }) {
 
         const vURL =
           'http://www.' + process.env.VERCEL_URL + '/api/searchJobListings';
-        const res = await fetch(vURL, {
+        const res = await fetch(devOrProd, {
           body: JSON.stringify(formData),
           headers: {
             'Content-Type': 'application/json',

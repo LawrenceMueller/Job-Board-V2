@@ -69,7 +69,7 @@ export default function JobPosting({ jobDetails }) {
 
         //'https://www.job-board-seven.vercel.app/api/applyForJob'
         const vURL = process.env.VERCEL_URL + '/api/applyForJob';
-        const res = await fetch(vURL, {
+        const res = await fetch(devOrProd, {
           method: 'post',
           body: data,
         });
@@ -353,6 +353,12 @@ export async function getStaticProps(context) {
       .return.first();
 
     job = job.entityData;
+
+    return {
+      props: {
+        jobDetails: job,
+      },
+    };
   } catch (error) {
     console.log(
       'error thrown in the getStaticProps function of job details page'
@@ -360,34 +366,101 @@ export async function getStaticProps(context) {
     console.log('here is the trace');
     console.error(error);
   }
-
-  return {
-    props: {
-      jobDetails: job,
-    },
-  };
 }
 
 export async function getStaticPaths() {
-  const devOrProd =
-    process.env.NODE_ENV === 'development'
-      ? `http://localhost:3000/api/searchJobListings`
-      : `https://www.consolejob/api/searchJobListings`;
+  try {
+    const client = new Client();
 
-  //'https://www.job-board-seven.vercel.app/api/searchJobListings'
-  const vURL =
-    'http://www.' + process.env.VERCEL_URL + '/api/searchJobListings';
-  const res = await fetch(vURL);
+    async function connect() {
+      if (!client.isOpen()) {
+        await client.open(process.env.REDIS_URL);
+      }
+    }
 
-  let data = await res.json();
-  data = data = Object.entries(data)[0][1];
+    // Schema for job listings
+    class JobListing extends Entity {}
+    let schema = new Schema(
+      JobListing,
+      {
+        pageId: { type: 'string' },
+        removalId: { type: 'string' },
+        title: { type: 'string', textSearch: true },
+        companyName: { type: 'string' },
+        contactEmail: { type: 'string' },
+        country: { type: 'string' },
+        state: { type: 'string' },
+        city: { type: 'string' },
+        zip: { type: 'string' },
+        lat: { type: 'number' },
+        lng: { type: 'number' },
+        experience: { type: 'string' },
+        telecommute: { type: 'string' },
+        positionType: { type: 'string' },
+        salaryType: { type: 'string' },
+        minimumSalary: { type: 'number' },
+        emailForward: { type: 'string' },
+        redirectURL: { type: 'string' },
+        companyWebsite: { type: 'string' },
+        description: { type: 'string', textSearch: true },
+        postedTime: { type: 'string' },
+        applied: { type: 'number' },
+      },
+      {
+        dataStructure: 'JSON',
+      }
+    );
 
-  const paths = data.map((job) => ({
-    params: { id: job.pageId },
-  }));
+    await connect();
 
-  return {
-    paths,
-    fallback: false,
-  };
+    const repository = new Repository(schema, client);
+
+    let jobs = await repository.search().return.all();
+
+    jobs.forEach((job) => {
+      job.entityData.removalId = 'Not Authorized';
+      job.entityData.contactEmail = 'Not Authorized';
+    });
+
+    let sortedResults = [];
+
+    jobs.forEach((job) => {
+      sortedResults.push(job.entityData);
+    });
+
+    sortedResults.sort(sortByDate);
+
+    // Util function that sorts job listings by data
+    function sortByDate(a, b) {
+      let jobA = timeDifference(a.postedTime);
+      let jobB = timeDifference(b.postedTime);
+
+      jobA = jobA.substring(0, jobA.length - 9);
+
+      jobB = jobB.substring(0, jobB.length - 9);
+
+      let comparison = 0;
+      if (jobA > jobB) {
+        comparison = 1;
+      } else if (jobA < jobB) {
+        comparison = -1;
+      }
+      return comparison;
+    }
+
+    const paths = sortedResults.map((job) => ({
+      params: { id: job.pageId },
+    }));
+
+    return {
+      paths,
+      fallback: false,
+    };
+  } catch (error) {
+    console.log(
+      'error thrown in the getStaticPaths function of job details page'
+    );
+    console.log('here is the trace');
+    console.error(error);
+  }
 }

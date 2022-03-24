@@ -1,7 +1,7 @@
 import { Client, Entity, Schema, Repository } from 'redis-om';
 
 export default async function handler(req, res) {
-  if (req.method === 'POST') {
+  if (req.method === 'DELETE') {
     // Initialize Redis
     const client = new Client();
 
