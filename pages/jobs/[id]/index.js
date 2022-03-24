@@ -37,11 +37,6 @@ export default function JobPosting({ jobDetails }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (grecaptcha.getResponse() === '') {
-      e.preventDefault();
-      alert("Please click <I'm not a robot> before sending the job");
-    }
-
     if (firstName === '') {
       badNotify('Missing First Name');
     } else if (lastName === '') {
@@ -63,8 +58,6 @@ export default function JobPosting({ jobDetails }) {
 
         data.append('positionPageId', jobDetails.pageId);
         data.append('position', jobDetails.title);
-
-        data.append('recaptchaResponse', grecaptcha.getResponse());
 
         // Append Files
         data.append('resume', resume);
@@ -304,10 +297,6 @@ export default function JobPosting({ jobDetails }) {
             <a className={jobDetailsStyles.back_btn}>Back</a>
           </Link>
         </div>
-        <ReCAPTCHA
-          size='normal'
-          sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-        />
       </form>
     </>
   );
