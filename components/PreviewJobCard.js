@@ -15,7 +15,6 @@ function PreviewJobCard({ individualJob }) {
 
   const handleExpandCard = () => {
     setExpanded(!expanded);
-    console.log(individualJob);
   };
 
   return (
