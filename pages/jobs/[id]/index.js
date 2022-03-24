@@ -64,9 +64,16 @@ export default function JobPosting({ jobDetails }) {
         data.append('positionPageId', jobDetails.pageId);
         data.append('position', jobDetails.title);
 
+        data.append('g-recaptcha-response', grecaptcha.getResponse());
+
         // Append Files
         data.append('resume', resume);
         coverLetter ? data.append('coverLetter', coverLetter) : null;
+
+        console.log('stuff');
+        console.log(data);
+        console.log('--------------');
+        console.log(grecaptcha.getResponse());
 
         const devOrProd =
           process.env.NODE_ENV === 'development'

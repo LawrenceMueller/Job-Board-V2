@@ -4,6 +4,7 @@ import formidable from 'formidable';
 import * as fs from 'fs';
 
 export default async function handler(req, res) {
+  console.log(req.body);
   if (req.method === 'POST') {
     if (!(await validateCaptcha(req.body['g-recaptcha-response']))) {
       return res.redirect(`/captcha`);
