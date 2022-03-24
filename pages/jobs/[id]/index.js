@@ -65,7 +65,7 @@ export default function JobPosting({ jobDetails }) {
         const devOrProd =
           process.env.NODE_ENV === 'development'
             ? `http://localhost:3000/api/applyForJob`
-            : `https://www.consolejob/api/applyForJob`;
+            : `https://www.consolejob.com/api/applyForJob`;
 
         //'https://www.job-board-seven.vercel.app/api/applyForJob'
         const vURL = process.env.VERCEL_URL + '/api/applyForJob';

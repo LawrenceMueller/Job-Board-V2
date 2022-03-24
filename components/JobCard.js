@@ -88,7 +88,6 @@ function JobCard({ individualJob }) {
           className={jobCardStyles.job_card__description}
           dangerouslySetInnerHTML={{ __html: individualJob.description }}
         />
-        {console.log(`https://www.consolejob/jobs/${individualJob.pageId}`)}
         {individualJob.emailForward ? (
           <LinkBtn
             name={'Apply'}

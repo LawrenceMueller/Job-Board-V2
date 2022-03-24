@@ -30,7 +30,7 @@ function Remove() {
     const devOrProd =
       process.env.NODE_ENV === 'development'
         ? `http://localhost:3000/api/removeJobListing`
-        : `https://www.consolejob/api/removeJobListing`;
+        : `https://www.consolejob.com/api/removeJobListing`;
 
     const vURL =
       'http://www.' + process.env.VERCEL_URL + '/api/removeJobListing';

@@ -68,7 +68,7 @@ function Search({ handleJobSearch }) {
         const devOrProd =
           process.env.NODE_ENV === 'development'
             ? `http://localhost:3000/api/searchJobListings`
-            : `https://www.consolejob/api/searchJobListings`;
+            : `https://www.consolejob.com//api/searchJobListings`;
 
         const vURL =
           'http://www.' + process.env.VERCEL_URL + '/api/searchJobListings';

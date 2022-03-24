@@ -170,7 +170,7 @@ function Postjob() {
       const devOrProd =
         process.env.NODE_ENV === 'development'
           ? `http://localhost:3000/api/createJobListing`
-          : `https://www.consolejob/api/createJobListing`;
+          : `https://www.consolejob.com/api/createJobListing`;
 
       const vURL =
         'http://www.' + process.env.VERCEL_URL + '/api/createJobListing';
