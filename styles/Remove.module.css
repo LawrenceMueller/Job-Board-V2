@@ -64,3 +64,8 @@
     font-size: 1.5rem;
   }
 }
+
+.trick {
+  position: absolute;
+  right: 10000px;
+}

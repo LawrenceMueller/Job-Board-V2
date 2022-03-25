@@ -16,13 +16,25 @@ function Remove() {
   const goodNotify = (msg) => toast.success(msg);
 
   const [uniqueId, setUniqueId] = useState('');
+  const [trickyBugger, setTrickyBugger] = useState(false);
 
   const handleRemove = () => {
     null;
   };
 
+  const handleOnTrick = () => {
+    setTrickyBugger(!trickyBugger);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (trickyBugger) {
+      alert(
+        'Never gonna give you up, never gonna let you done, never gonna turn around and desert you'
+      );
+      return;
+    }
 
     const form = new FormData(e.target);
     const formData = Object.fromEntries(form.entries());
@@ -85,6 +97,16 @@ function Remove() {
               type='text'
               value={uniqueId}
               onChange={(e) => setUniqueId(e.target.value)}
+            />
+          </div>
+          <div className={removeStyles.trick}>
+            <label htmlFor='trickyBugger'>Agree to terms and conditions</label>
+            <input
+              name='trickyBugger'
+              type='checkbox'
+              value='Paneer'
+              checked={trickyBugger}
+              onChange={handleOnTrick}
             />
           </div>
           <div className={removeStyles.remove_listing_screen___btn_container}>

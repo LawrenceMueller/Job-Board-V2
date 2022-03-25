@@ -17,6 +17,7 @@ function Search({ handleJobSearch }) {
   const [jobType, setJobType] = useState('');
   const [salary, setSalary] = useState('');
   const [salaryType, setSalaryType] = useState('');
+  const [trickyBugger, setTrickyBugger] = useState(false);
 
   const handleExperienceChange = (experienceChosen) => {
     setExperience(experienceChosen);
@@ -52,8 +53,19 @@ function Search({ handleJobSearch }) {
     setSalaryType('');
   };
 
+  const handleOnTrick = () => {
+    setTrickyBugger(!trickyBugger);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (trickyBugger) {
+      alert(
+        'Never gonna give you up, never gonna let you done, never gonna turn around and desert you'
+      );
+      return;
+    }
 
     const form = new FormData(e.target);
     const formData = Object.fromEntries(form.entries());
@@ -133,6 +145,16 @@ function Search({ handleJobSearch }) {
           jobSalaryTypeChange={handleSalaryTypeChange}
           forSearch={true}
         />
+        <div className={searchStyles.trick}>
+          <label htmlFor='trickyBugger'>Agree to terms and conditions</label>
+          <input
+            name='trickyBugger'
+            type='checkbox'
+            value='Paneer'
+            checked={trickyBugger}
+            onChange={handleOnTrick}
+          />
+        </div>
         <div className={searchStyles.job_search__btn_container}>
           <GeneralBtn
             name='Search'
