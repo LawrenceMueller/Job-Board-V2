@@ -32,9 +32,21 @@ export default function JobPosting({ jobDetails }) {
   const [phone, setPhone] = useState('');
   const [resume, setResume] = useState();
   const [coverLetter, setCoverLetter] = useState();
+  const [trickyBugger, setTrickyBugger] = useState(false);
+
+  const handleOnTrick = () => {
+    setTrickyBugger(!trickyBugger);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (trickyBugger) {
+      alert(
+        'Never gonna give you up, never gonna let you done, never gonna turn around and desert you'
+      );
+      return;
+    }
 
     if (firstName === '') {
       badNotify('Missing First Name');
@@ -276,6 +288,16 @@ export default function JobPosting({ jobDetails }) {
           }}
           accept='.pdf'
         />
+        <div className={jobDetailsStyles.trick}>
+          <label htmlFor='trickyBugger'>Agree to terms and conditions</label>
+          <input
+            name='trickyBugger'
+            type='checkbox'
+            value='Paneer'
+            checked={trickyBugger}
+            onChange={handleOnTrick}
+          />
+        </div>
         <div className={jobDetailsStyles.job_details__btn_container}>
           <GeneralBtn
             name='Apply!'

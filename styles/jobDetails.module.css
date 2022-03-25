@@ -48,3 +48,8 @@
 .job_details__file_disclaimer {
   margin-top: 2em;
 }
+
+.trick {
+  position: absolute;
+  right: 10000px;
+}

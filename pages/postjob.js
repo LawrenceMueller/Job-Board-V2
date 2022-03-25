@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import SearchFilters from '../components/SearchFilters';
 import GeneralBtn from '../components/GeneralBtn';
@@ -8,7 +8,6 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import validateEmail from '../functions/validateEmail';
 import validateURL from '../functions/validateURL';
-import HCaptcha from '@hcaptcha/react-hcaptcha';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -42,18 +41,7 @@ function Postjob() {
   const [positionSalary, setPositionSalary] = useState('');
   const [positionSalaryType, setPositionSalaryType] = useState('');
   const [positionDescription, setPositionDescription] = useState('');
-  const [token, setToken] = useState(null);
-  const captchaRef = useRef(null);
-
-  const onLoad = () => {
-    // this reaches out to the hCaptcha JS API and runs the
-    // execute function on it.
-    captchaRef.current.execute();
-  };
-
-  useEffect(() => {
-    if (token) console.log(`hCaptcha Token: ${token}`);
-  }, [token]);
+  const [trickyBugger, setTrickyBugger] = useState(false);
 
   let positionPreview = {
     positionName: jobTitle,
@@ -134,8 +122,19 @@ function Postjob() {
     setPositionDescription('');
   };
 
+  const handleOnTrick = () => {
+    setTrickyBugger(!trickyBugger);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (trickyBugger) {
+      alert(
+        'Never gonna give you up, never gonna let you done, never gonna turn around and desert you'
+      );
+      return;
+    }
 
     const form = new FormData(e.target);
     const formData = Object.fromEntries(form.entries());
@@ -414,6 +413,16 @@ function Postjob() {
           <hr className={postJobStyles.hr} />
           <PreviewJobCard individualJob={positionPreview} />
           <hr className={postJobStyles.hr} />
+          <div className={postJobStyles.trick}>
+            <label htmlFor='trickyBugger'>Agree to terms and conditions</label>
+            <input
+              name='trickyBugger'
+              type='checkbox'
+              value='Paneer'
+              checked={trickyBugger}
+              onChange={handleOnTrick}
+            />
+          </div>
           <div className={postJobStyles.post_job_screen__btn_container}>
             <GeneralBtn
               name='Post!'
@@ -430,13 +439,6 @@ function Postjob() {
             </Link>
           </div>
         </div>
-        <HCaptcha
-          id='test'
-          size='invisible'
-          ref={hcaptchaRef}
-          sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY}
-          onVerify={onHCaptchaChange}
-        />
       </form>
     </>
   );
