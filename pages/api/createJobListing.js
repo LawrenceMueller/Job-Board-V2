@@ -112,6 +112,9 @@ export default async function handler(req, res) {
       Thank you for using Console.Job(). This is a small business, made by ONE person, 
       so it means a lot that you used this service. Every time a buisness uses this service
       you are helping a developer pay bills. Thank you!
+      \r\n
+      \r\n
+      If you need support, please contact this email: consolejobcontact@gmail.com
     `;
 
       // Email to the company for confirmation
