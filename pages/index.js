@@ -29,15 +29,21 @@ export default function Home({ sortedResults }) {
           </title>
         </Head>
         <Search handleJobSearch={handleJobSearch} />
-        <main className={indexStyles.job_card__container}>
-          {searchedJobs === null
-            ? jobs.map((job) => (
-                <JobCard individualJob={job} key={job.pageId} />
-              ))
-            : searchedJobs.map((job) => (
-                <JobCard individualJob={job} key={job.pageId} />
-              ))}
-        </main>
+        {searchedJobs !== null && Object.keys(searchedJobs).length === 0 ? (
+          <div className={indexStyles.no_jobs}>
+            <h3>No results found</h3>
+          </div>
+        ) : (
+          <main className={indexStyles.job_card__container}>
+            {searchedJobs === null
+              ? jobs.map((job) => (
+                  <JobCard individualJob={job} key={job.pageId} />
+                ))
+              : searchedJobs.map((job) => (
+                  <JobCard individualJob={job} key={job.pageId} />
+                ))}
+          </main>
+        )}
       </>
     );
   } else {
