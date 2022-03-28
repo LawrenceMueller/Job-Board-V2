@@ -1,7 +1,7 @@
 name: Purge old job listings from db
 on:
   schedule:
-    - cron: '*/1 * * * *'
+    - cron: '* * * * *'
 jobs:
   cron:
     runs-on: ubuntu-latest
