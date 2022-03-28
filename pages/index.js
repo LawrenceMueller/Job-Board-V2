@@ -174,7 +174,6 @@ async function refreshFeedToShowNewJobPosted() {
       : `https://www.consolejob.com//api/searchJobListings`;
 
   const res = await fetch(devOrProd, {
-    body: JSON.stringify(formData),
     headers: {
       'Content-Type': 'application/json',
     },
