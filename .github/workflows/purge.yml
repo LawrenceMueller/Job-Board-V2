@@ -1,12 +1,13 @@
+name: Purge old job listings from db
 on:
   schedule:
-    - cron: "*/5 * * * *"
-    jobs:
-      cron:
-        runs-on: ubuntu-latest
-        steps:
-          - name: Call API Route
-            run: |
-              curl --request POST \
-              --url 'https://www.consolejob.com/api/purge' \
-              --header 'Authorization: Bearer ${{ secrets.PURGE_SECRET_KEY }}'
+    - cron: '*/5 * * * *'
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call API Route
+        run: |
+          curl --request POST \
+          --url 'https://www.consolejob.com/api/purge' \
+          --header 'Authorization: Bearer ${{ secrets.PURGE_SECRET_KEY }}'
