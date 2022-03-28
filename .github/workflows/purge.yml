@@ -10,4 +10,3 @@ jobs:
         run: |
           curl --request POST \
           --url 'https://www.consolejob.com/api/purge' \
-          --header 'Authorization: Bearer ${{ secrets.PURGE_API_KEY }}'
