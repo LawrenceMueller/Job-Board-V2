@@ -6,8 +6,8 @@ jobs:
   cron:
     runs-on: ubuntu-latest
     steps:
-      - name: Call API Route
+      - name: Purge old job listings from db
         run: |
           curl --request POST \
           --url 'https://www.consolejob.com/api/purge' \
-          --header 'Authorization: Bearer ${{ secrets.PURGE_SECRET_KEY }}'
+          --header 'Authorization: Bearer ${{ secrets.PURGE_API_KEY }}'
