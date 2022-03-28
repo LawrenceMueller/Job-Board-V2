@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import JobCard from '../components/JobCard';
 import Search from '../components/Search';
 import Head from 'next/head';
@@ -9,11 +10,17 @@ import indexStyles from '../styles/Index.module.css';
 import { Client, Entity, Schema, Repository } from 'redis-om';
 
 export default function Home({ sortedResults }) {
+  const router = useRouter();
+
   const [jobs, setJobs] = useState([]);
   const [searchedJobs, setSearchedJobs] = useState(null);
 
   useEffect(() => {
     setJobs(sortedResults);
+
+    if (router.asPath === '/?success=true') {
+      setJobs(refreshFeedToShowNewJobPosted());
+    }
   }, [jobs, sortedResults]);
 
   const handleJobSearch = (jobsReturned) => {
@@ -158,4 +165,22 @@ export async function getStaticProps() {
     console.log('here is the trace');
     console.error(error);
   }
+}
+
+async function refreshFeedToShowNewJobPosted() {
+  const devOrProd =
+    process.env.NODE_ENV === 'development'
+      ? `http://localhost:3000/api/searchJobListings`
+      : `https://www.consolejob.com//api/searchJobListings`;
+
+  const res = await fetch(devOrProd, {
+    body: JSON.stringify(formData),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+  });
+
+  const result = await res.json();
+  return handleJobSearch(Object.entries(result)[0][1]);
 }
