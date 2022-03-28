@@ -19,7 +19,7 @@ export default function Home({ sortedResults }) {
     setJobs(sortedResults);
 
     if (router.asPath === '/?success=true') {
-      setJobs(refreshFeedToShowNewJobPosted());
+      setSearchedJobs(null);
     }
   }, [jobs, sortedResults]);
 
@@ -165,21 +165,4 @@ export async function getStaticProps() {
     console.log('here is the trace');
     console.error(error);
   }
-}
-
-async function refreshFeedToShowNewJobPosted() {
-  const devOrProd =
-    process.env.NODE_ENV === 'development'
-      ? `http://localhost:3000/api/searchJobListings`
-      : `https://www.consolejob.com//api/searchJobListings`;
-
-  const res = await fetch(devOrProd, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    method: 'POST',
-  });
-
-  const result = await res.json();
-  return Object.entries(result)[0][1];
 }
