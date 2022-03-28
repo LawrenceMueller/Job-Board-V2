@@ -62,7 +62,7 @@ export default async function handler(req, res) {
           numberOfDaysOld.length - 9
         );
 
-        if (numberOfDaysOld > 60) {
+        if (parseInt(numberOfDaysOld) > 60) {
           repository.remove(listing.entityId);
         }
       });
