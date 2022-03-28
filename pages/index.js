@@ -182,5 +182,5 @@ async function refreshFeedToShowNewJobPosted() {
   });
 
   const result = await res.json();
-  return handleJobSearch(Object.entries(result)[0][1]);
+  return Object.entries(result)[0][1];
 }
