@@ -380,6 +380,7 @@ export async function getStaticProps(context) {
       props: {
         jobDetails: job,
       },
+      revalidate: 10, // in seconds, in order to show newly posted jobs
     };
   } catch (error) {
     console.log(
