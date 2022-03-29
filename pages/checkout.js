@@ -36,7 +36,7 @@ function Checkout() {
           By clicking checkout, you agree to the{' '}
           <a
             target='_blank'
-            href='https://stripe.com/'
+            href='https://docs.google.com/document/d/1gcSNcUiPfcA2IciJSC9g8zaP6X9_2_3etyzO-LhB4fs/edit?usp=sharing'
             rel='noopener noreferrer'
             style={{ textDecoration: 'none', color: '#e21865' }}
           >
@@ -45,7 +45,7 @@ function Checkout() {
           , the{' '}
           <a
             target='_blank'
-            href='https://stripe.com/'
+            href='https://docs.google.com/document/d/1aF9XeGDRPXWUfFG8RghmkWBOfG13o5D05bFlij9jGQ4/edit?usp=sharing'
             rel='noopener noreferrer'
             style={{ textDecoration: 'none', color: '#e21865' }}
           >
