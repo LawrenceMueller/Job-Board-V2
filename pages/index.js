@@ -159,7 +159,7 @@ export async function getStaticProps() {
 
     return {
       props: { sortedResults }, // will be passed to the page component as props
-      revalidate: 10, // in seconds, in order to show newly posted jobs
+      revalidate: 5, // in seconds, in order to show newly posted jobs
     };
   } catch (error) {
     console.log('error thrown in the getStaticProps function of home page');
