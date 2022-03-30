@@ -13,6 +13,7 @@ export default async function handler(req, res) {
           },
         ],
         mode: 'payment',
+        allow_promotion_codes: true,
         success_url: `${req.headers.origin}/?success=true`,
         cancel_url: `${req.headers.origin}/?canceled=true`,
       });
