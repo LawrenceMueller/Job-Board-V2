@@ -12,7 +12,7 @@ function Header() {
     <header className={headerStyles.hero__container} id={'top'}>
       <div className={headerStyles.hero__text_content}>
         <p className={headerStyles.hero__subtext}>
-          Find your next career in Software
+          Find your next career in Web Development
         </p>
         <h1 className={headerStyles.hero__title}>Console.job&#40;&#41;</h1>
         <h2 className={headerStyles.hero__text_description}>
