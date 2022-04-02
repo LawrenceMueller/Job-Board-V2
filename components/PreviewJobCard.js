@@ -9,8 +9,7 @@ import {
 } from 'react-icons/fa';
 
 import jobCardStyles from '../styles/JobCard.module.css';
-
-import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
+import SunEditorStyles from '../styles/SunEditor.module.css';
 
 function PreviewJobCard({ individualJob }) {
   const [expanded, setExpanded] = useState(false);
@@ -69,7 +68,7 @@ function PreviewJobCard({ individualJob }) {
           </span>
         </p>
         <div
-          className={jobCardStyles.job_card__description}
+          className={SunEditorStyles.sun_editor_editable}
           dangerouslySetInnerHTML={{ __html: individualJob.description }}
         />
         <button
