@@ -11,6 +11,7 @@ import {
 } from 'react-icons/fa';
 
 import jobCardStyles from '../styles/JobCard.module.css';
+import SunEditorStyles from '../styles/SunEditor.module.css';
 
 function JobCard({ individualJob }) {
   const [expanded, setExpanded] = useState(false);
@@ -85,7 +86,7 @@ function JobCard({ individualJob }) {
             : individualJob.companyWebsite}
         </span>
         <div
-          className={jobCardStyles.job_card__description}
+          className={SunEditorStyles.sun_editor_editable}
           dangerouslySetInnerHTML={{ __html: individualJob.description }}
         />
         {individualJob.emailForward ? (
