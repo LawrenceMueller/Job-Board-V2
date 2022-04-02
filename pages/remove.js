@@ -100,7 +100,10 @@ function Remove() {
             />
           </div>
           <div className={removeStyles.trick}>
-            <label htmlFor='trickyBugger'>Agree to terms and conditions</label>
+            <label htmlFor='trickyBugger'>
+              If your on a screen reader leave this box empty, its to trick
+              bots. Agree to terms and conditions
+            </label>
             <input
               name='trickyBugger'
               type='checkbox'

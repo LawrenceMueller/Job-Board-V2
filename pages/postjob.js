@@ -414,7 +414,10 @@ function Postjob() {
           <PreviewJobCard individualJob={positionPreview} />
           <hr className={postJobStyles.hr} />
           <div className={postJobStyles.trick}>
-            <label htmlFor='trickyBugger'>Agree to terms and conditions</label>
+            <label htmlFor='trickyBugger'>
+              If your on a screen reader leave this box empty, its to trick
+              bots. Agree to terms and conditions?
+            </label>
             <input
               name='trickyBugger'
               type='checkbox'

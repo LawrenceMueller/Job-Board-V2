@@ -10,6 +10,8 @@ import {
 
 import jobCardStyles from '../styles/JobCard.module.css';
 
+import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
+
 function PreviewJobCard({ individualJob }) {
   const [expanded, setExpanded] = useState(false);
 
