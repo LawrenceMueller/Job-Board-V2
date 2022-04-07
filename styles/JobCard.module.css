@@ -21,7 +21,6 @@
 
 .job_card__title {
   font-weight: bold;
-  white-space: nowrap;
   text-overflow: ellipsis;
   font-size: 1.25rem;
   line-height: 1em;

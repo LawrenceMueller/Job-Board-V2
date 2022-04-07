@@ -301,6 +301,26 @@ export default function JobPosting({ jobDetails }) {
             onChange={handleOnTrick}
           />
         </div>
+        <p className={jobDetailsStyles.checkout_screen___disclaimer}>
+          By clicking checkout, you agree to the{' '}
+          <a
+            target='_blank'
+            href='https://docs.google.com/document/d/1gcSNcUiPfcA2IciJSC9g8zaP6X9_2_3etyzO-LhB4fs/edit?usp=sharing'
+            rel='noopener noreferrer'
+            style={{ textDecoration: 'none', color: '#e21865' }}
+          >
+            Terms of Service
+          </a>
+          , the{' '}
+          <a
+            target='_blank'
+            href='https://docs.google.com/document/d/1aF9XeGDRPXWUfFG8RghmkWBOfG13o5D05bFlij9jGQ4/edit?usp=sharing'
+            rel='noopener noreferrer'
+            style={{ textDecoration: 'none', color: '#e21865' }}
+          >
+            Privacy Policy
+          </a>
+        </p>
         <div className={jobDetailsStyles.job_details__btn_container}>
           <GeneralBtn
             name='Apply!'
