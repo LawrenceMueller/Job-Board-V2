@@ -5,6 +5,7 @@ import { loadStripe } from '@stripe/stripe-js';
 
 import checkoutStyles from '../styles/Checkout.module.css';
 
+// Idk if I need this, but it was in the stripe docs, so it stays lol
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_LIVE
 );
