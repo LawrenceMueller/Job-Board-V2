@@ -30,7 +30,7 @@
 .job_card__salary,
 .job_card__experience,
 .job_card__remote {
-  margin: 1em 1em 1em 0;
+  margin: 1em .5em 1em 0;
 }
 
 .job_card__company,
