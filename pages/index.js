@@ -4,6 +4,7 @@ import JobCard from '../components/JobCard';
 import Search from '../components/Search';
 import Head from 'next/head';
 import { timeDifference } from '../functions/timeDifference';
+import Footer from '../components/Footer';
 
 import indexStyles from '../styles/Index.module.css';
 
@@ -51,6 +52,7 @@ export default function Home({ sortedResults }) {
                 ))}
           </main>
         )}
+        <Footer />
       </>
     );
   } else {
@@ -66,6 +68,7 @@ export default function Home({ sortedResults }) {
           <br />
           <h3>Post one using the button above!</h3>
         </div>
+        <Footer />
       </>
     );
   }
