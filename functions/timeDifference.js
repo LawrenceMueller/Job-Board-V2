@@ -13,7 +13,7 @@ export function timeDifference(jobListingDate) {
   var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
 
   if (Difference_In_Days < 1) {
-    return 'today';
+    return 'Today';
   } else if (Math.round(Difference_In_Days) === 1) {
     return 'Yesterday';
   } else {

@@ -134,16 +134,28 @@ export async function getStaticProps() {
       sortedResults.push(job.entityData);
     });
 
-    sortedResults.sort(sortByData);
+    sortedResults.sort(sortByDate);
 
     // Util function that sorts job listings by data
-    function sortByData(a, b) {
+    function sortByDate(a, b) {
       let jobA = timeDifference(a.postedTime);
       let jobB = timeDifference(b.postedTime);
 
-      jobA = jobA.substring(0, jobA.length - 9);
+      if (jobA === 'Today') {
+        jobA = 1;
+      } else if (jobA === 'Yesterday') {
+        jobA = 2;
+      } else {
+        jobA = parseInt(jobA.substring(0, jobA.length - 9));
+      }
 
-      jobB = jobB.substring(0, jobB.length - 9);
+      if (jobB === 'Today') {
+        jobB = 1;
+      } else if (jobB === 'Yesterday') {
+        jobB = 2;
+      } else {
+        jobB = parseInt(jobB.substring(0, jobB.length - 9));
+      }
 
       let comparison = 0;
       if (jobA > jobB) {
@@ -162,7 +174,7 @@ export async function getStaticProps() {
 
     return {
       props: { sortedResults }, // will be passed to the page component as props
-      revalidate: 5, // in seconds, in order to show newly posted jobs
+      revalidate: 3, // in seconds, in order to show newly posted jobs
     };
   } catch (error) {
     console.log('error thrown in the getStaticProps function of home page');
